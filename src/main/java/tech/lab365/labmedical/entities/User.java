@@ -1,6 +1,11 @@
 package tech.lab365.labmedical.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import tech.lab365.labmedical.validation.Cpf;
 
 import java.time.LocalDate;
 
@@ -9,21 +14,32 @@ import java.time.LocalDate;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    private Long user_id;
 
+    @NotBlank
+    @Size(max = 255)
     @Column(nullable = false, length = 255)
     private String name;
 
+    @NotBlank
+    @Email
+    @Size(max = 255)
     @Column(nullable = false, unique = true, length = 255)
     private String email;
 
+    @NotNull
     @Column(nullable = false)
-    private LocalDate userBirthdate;
+    private LocalDate birthdate;
 
+    @NotBlank
+    @Cpf
+    @Size(min = 11, max = 14)
     @Column(nullable = false, unique = true, length = 14)
     private String cpf;
 
+    @NotBlank
+    @Size(max = 255)
     @Column(nullable = false, length = 255)
     private String password;
 
@@ -32,12 +48,8 @@ public class User {
     public User() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public Long getUserId() {
+        return user_id;
     }
 
     public String getName() {
@@ -56,12 +68,12 @@ public class User {
         this.email = email;
     }
 
-    public LocalDate getUserBirthdate() {
-        return userBirthdate;
+    public LocalDate getBirthdate() {
+        return birthdate;
     }
 
-    public void setUserBirthdate(LocalDate userBirthdate) {
-        this.userBirthdate = userBirthdate;
+    public void setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
     }
 
     public String getCpf() {

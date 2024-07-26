@@ -4,19 +4,19 @@ import java.time.LocalDate;
 
 public class UserResponseDTO {
 
-    private Long id;
+    private Long userId;
     private String name;
     private String email;
-    private LocalDate userBirthdate;
+    private LocalDate birthdate;
     private String cpf;
     private String profile;
 
     public Long getId() {
-        return id;
+        return userId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.userId = id;
     }
 
     public String getName() {
@@ -35,12 +35,12 @@ public class UserResponseDTO {
         this.email = email;
     }
 
-    public LocalDate getUserBirthdate() {
-        return userBirthdate;
+    public LocalDate getBirthdate() {
+        return birthdate;
     }
 
-    public void setUserBirthdate(LocalDate userBirthdate) {
-        this.userBirthdate = userBirthdate;
+    public void setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
     }
 
     public String getCpf() {
