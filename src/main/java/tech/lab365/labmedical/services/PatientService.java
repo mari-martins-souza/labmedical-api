@@ -14,21 +14,21 @@ import tech.lab365.labmedical.repositories.UserRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @Service
 public class PatientService {
 
-    @Autowired
-    private PatientRepository patientRepository;
+    private final PatientRepository patientRepository;
+    private final UserRepository userRepository;
+    private final PatientMapper patientMapper;
+    private final UserMapper userMapper;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private PatientMapper patientMapper;
-
-    @Autowired
-    private UserMapper userMapper;
+    public PatientService(PatientRepository patientRepository, UserRepository userRepository, PatientMapper patientMapper, UserMapper userMapper) {
+        this.patientRepository = patientRepository;
+        this.userRepository = userRepository;
+        this.patientMapper = patientMapper;
+        this.userMapper = userMapper;
+    }
 
     public Patient registerPatient(PatientRequestDTO patientRequestDTO) {
 
@@ -54,18 +54,18 @@ public class PatientService {
     }
 
     public PatientResponseDTO updatePatient(Long id, PatientRequestDTO patientRequestDTO) {
-        patientRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Patient not found"));
-        Patient patient;
+    Patient patient = patientRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Patient not found"));
 
-        User user = userMapper.toUser(patientRequestDTO);
-        userRepository.save(user);
+    User user = patient.getUser();
+    userMapper.updateUserFromDto(patientRequestDTO, user);
+    userRepository.save(user);
 
-        patient = patientMapper.toPatient(patientRequestDTO, user);
-        patientRepository.save(patient);
+    patientMapper.updatePatientFromDto(patientRequestDTO, patient, user);
+    patientRepository.save(patient);
 
-        return patientMapper.toResponseDTO(patient);
-    }
+    return patientMapper.toResponseDTO(patient);
+}
 
     public void deletePatient(Long id) {
         patientRepository.deleteById(id);
