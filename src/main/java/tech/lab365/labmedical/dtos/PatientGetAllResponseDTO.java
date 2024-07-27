@@ -2,22 +2,13 @@ package tech.lab365.labmedical.dtos;
 
 import java.time.LocalDate;
 
-public class UserResponseDTO {
+public class PatientGetAllResponseDTO {
 
-    private Long userId;
     private String name;
     private String email;
     private LocalDate birthdate;
-    private String cpf;
-    private String profile;
-
-    public Long getId() {
-        return userId;
-    }
-
-    public void setId(Long id) {
-        this.userId = id;
-    }
+    private String phone;
+    private String healthInsurance;
 
     public String getName() {
         return name;
@@ -43,19 +34,20 @@ public class UserResponseDTO {
         this.birthdate = birthdate;
     }
 
-    public String getCpf() {
-        return cpf;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getProfile() {
-        return profile;
+    public String getHealthInsurance() {
+        return healthInsurance;
     }
 
-    public void setProfile(String profile) {
-        this.profile = profile;
+    public void setHealthInsurance(String healthInsurance) {
+        this.healthInsurance = healthInsurance;
     }
+
 }

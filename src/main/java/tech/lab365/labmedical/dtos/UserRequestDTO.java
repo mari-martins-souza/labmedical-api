@@ -16,8 +16,8 @@ public class UserRequestDTO {
     @Email
     private String email;
 
-    @NotNull(message = "userBirthdate is mandatory")
-    private LocalDate userBirthdate;
+    @NotNull(message = "birthdate is mandatory")
+    private LocalDate birthdate;
 
     @NotBlank(message = "cpf is mandatory")
     @Size(max = 14)
@@ -44,12 +44,12 @@ public class UserRequestDTO {
         this.email = email;
     }
 
-    public LocalDate getUserBirthdate() {
-        return userBirthdate;
+    public LocalDate getbirthdate() {
+        return birthdate;
     }
 
-    public void setUserBirthdate(LocalDate userBirthdate) {
-        this.userBirthdate = userBirthdate;
+    public void setBirthdate(LocalDate birthdate) {
+        this.birthdate = birthdate;
     }
 
     public String getCpf() {
