@@ -317,4 +317,7 @@ public class Patient {
         this.user = user;
     }
 
+    public User getUser() {
+        return user;
+    }
 }

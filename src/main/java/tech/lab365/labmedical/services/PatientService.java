@@ -1,7 +1,9 @@
 package tech.lab365.labmedical.services;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tech.lab365.labmedical.dtos.PatientGetAllResponseDTO;
 import tech.lab365.labmedical.dtos.PatientRequestDTO;
 import tech.lab365.labmedical.dtos.PatientResponseDTO;
 import tech.lab365.labmedical.entities.Patient;
@@ -18,17 +20,18 @@ import java.util.stream.Collectors;
 @Service
 public class PatientService {
 
-    @Autowired
-    private PatientRepository patientRepository;
+    private final PatientRepository patientRepository;
+    private final UserRepository userRepository;
+    private final PatientMapper patientMapper;
+    private final UserMapper userMapper;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private PatientMapper patientMapper;
-
-    @Autowired
-    private UserMapper userMapper;
+    public PatientService(PatientRepository patientRepository, UserRepository userRepository, PatientMapper patientMapper, UserMapper userMapper) {
+        this.patientRepository = patientRepository;
+        this.userRepository = userRepository;
+        this.patientMapper = patientMapper;
+        this.userMapper = userMapper;
+    }
 
     public Patient registerPatient(PatientRequestDTO patientRequestDTO) {
 
@@ -41,9 +44,9 @@ public class PatientService {
         return patient;
     }
 
-    public List<PatientResponseDTO> getAllPatients() {
+    public List<PatientGetAllResponseDTO> getAllPatients(String name, String phone, String email) {
         return patientRepository.findAll().stream()
-                .map(patientMapper::toResponseDTO)
+                .map(patientMapper::toResponseAllDTO)
                 .collect(Collectors.toList());
     }
 
@@ -54,20 +57,24 @@ public class PatientService {
     }
 
     public PatientResponseDTO updatePatient(Long id, PatientRequestDTO patientRequestDTO) {
-        patientRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Patient not found"));
-        Patient patient;
+        Patient patient = patientRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Patient not found"));
 
-        User user = userMapper.toUser(patientRequestDTO);
+        User user = patient.getUser();
+        userMapper.updateUserFromDto(patientRequestDTO, user);
         userRepository.save(user);
 
-        patient = patientMapper.toPatient(patientRequestDTO, user);
+        patientMapper.updatePatientFromDto(patientRequestDTO, patient, user);
         patientRepository.save(patient);
 
         return patientMapper.toResponseDTO(patient);
     }
 
+
     public void deletePatient(Long id) {
+        if (!patientRepository.existsById(id)) {
+            throw new EntityNotFoundException("Patient not found");
+        }
         patientRepository.deleteById(id);
     }
 }

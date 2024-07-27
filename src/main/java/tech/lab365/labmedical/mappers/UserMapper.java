@@ -40,4 +40,15 @@ public class UserMapper {
         dto.setProfile(user.getProfile());
         return dto;
     }
+
+    public void updateUserFromDto(PatientRequestDTO dto, User user) {
+        user.setName(dto.getName());
+        user.setEmail(dto.getEmail());
+        user.setBirthdate(dto.getBirthdate());
+        user.setCpf(dto.getCpf());
+    }
+
+
+
+
 }

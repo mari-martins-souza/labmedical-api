@@ -1,6 +1,7 @@
 package tech.lab365.labmedical.mappers;
 
 import org.springframework.stereotype.Component;
+import tech.lab365.labmedical.dtos.PatientGetAllResponseDTO;
 import tech.lab365.labmedical.dtos.PatientRequestDTO;
 import tech.lab365.labmedical.dtos.PatientResponseDTO;
 import tech.lab365.labmedical.entities.Patient;
@@ -66,6 +67,47 @@ public class PatientMapper {
         dto.setNeighborhood(patient.getNeighborhood());
         dto.setCity(patient.getCity());
         dto.setState(patient.getState());
+        dto.setPatient_id((patient.getPatientId()));
         return dto;
     }
+
+    public PatientGetAllResponseDTO toResponseAllDTO(Patient patient) {
+        PatientGetAllResponseDTO dto = new PatientGetAllResponseDTO();
+        dto.setName(patient.getName());
+        dto.setBirthdate(patient.getBirthdate());
+        dto.setPhone(patient.getPhone());
+        dto.setEmail(patient.getEmail());
+        dto.setHealthInsurance(patient.getHealthInsurance());
+        return dto;
+    }
+
+    public void updatePatientFromDto(PatientRequestDTO dto, Patient patient, User user) {
+        patient.setName(dto.getName());
+        patient.setGender(dto.getGender());
+        patient.setBirthdate(dto.getBirthdate());
+        patient.setCpf(dto.getCpf());
+        patient.setRg(dto.getRg());
+        patient.setIssOrg(dto.getIssOrg());
+        patient.setMaritalStatus(dto.getMaritalStatus());
+        patient.setPhone(dto.getPhone());
+        patient.setEmail(dto.getEmail());
+        patient.setPlaceOfBirth(dto.getPlaceOfBirth());
+        patient.setEmergCont(dto.getEmergCont());
+        patient.setEmergContNumber(dto.getEmergContNumber());
+        patient.setListOfAllergies(dto.getListOfAllergies());
+        patient.setCareList(dto.getCareList());
+        patient.setHealthInsurance(dto.getHealthInsurance());
+        patient.setHealthInsuranceNumber(dto.getHealthInsuranceNumber());
+        patient.setHealthInsuranceVal(dto.getHealthInsuranceVal());
+        patient.setZipcode(dto.getZipcode());
+        patient.setStreet(dto.getStreet());
+        patient.setAddressNumber(dto.getAddressNumber());
+        patient.setComplement(dto.getComplement());
+        patient.setReferencePoint(dto.getReferencePoint());
+        patient.setNeighborhood(dto.getNeighborhood());
+        patient.setCity(dto.getCity());
+        patient.setState(dto.getState());
+        patient.setUser(user);
+    }
+
 }

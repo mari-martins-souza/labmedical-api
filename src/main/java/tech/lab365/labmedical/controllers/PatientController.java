@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tech.lab365.labmedical.dtos.PatientGetAllResponseDTO;
 import tech.lab365.labmedical.dtos.PatientRequestDTO;
 import tech.lab365.labmedical.dtos.PatientResponseDTO;
 import tech.lab365.labmedical.entities.Patient;
@@ -25,8 +26,11 @@ public class PatientController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PatientResponseDTO>> getAllPatients() {
-        List<PatientResponseDTO> patients = patientService.getAllPatients();
+    public ResponseEntity<List<PatientGetAllResponseDTO>> getAllPatients(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String phone,
+            @RequestParam(required = false) String email) {
+        List<PatientGetAllResponseDTO> patients = patientService.getAllPatients(name, phone, email);
         return ResponseEntity.ok(patients);
     }
 
@@ -37,7 +41,7 @@ public class PatientController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PatientResponseDTO> updatePatient(@PathVariable Long id, @RequestBody PatientRequestDTO patientRequestDTO) {
+    public ResponseEntity<PatientResponseDTO> updatePatient(@PathVariable Long id, @Valid @RequestBody PatientRequestDTO patientRequestDTO) {
         PatientResponseDTO updatedPatient = patientService.updatePatient(id, patientRequestDTO);
         return ResponseEntity.ok(updatedPatient);
     }

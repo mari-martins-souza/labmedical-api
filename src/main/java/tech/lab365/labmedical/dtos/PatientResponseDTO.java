@@ -4,14 +4,10 @@ import java.time.LocalDate;
 
 public class PatientResponseDTO {
 
-    private Long user_id;
     private String name;
     private String email;
     private LocalDate birthdate;
     private String cpf;
-    private String password;
-    private String profile;
-
     private Long patient_id;
     private String gender;
     private String rg;
@@ -34,22 +30,6 @@ public class PatientResponseDTO {
     private String neighborhood;
     private String city;
     private String state;
-
-    public Long getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
-    }
-
-    public Long getPatient_id() {
-        return patient_id;
-    }
-
-    public void setPatient_id(Long patient_id) {
-        this.patient_id = patient_id;
-    }
 
     public String getName() {
         return name;
@@ -83,20 +63,12 @@ public class PatientResponseDTO {
         this.cpf = cpf;
     }
 
-    public String getPassword() {
-        return password;
+    public Long getPatient_id() {
+        return patient_id;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getProfile() {
-        return profile;
-    }
-
-    public void setProfile(String profile) {
-        this.profile = profile;
+    public void setPatient_id(Long patient_id) {
+        this.patient_id = patient_id;
     }
 
     public String getGender() {
