@@ -70,7 +70,6 @@ public class PatientService {
         return patientMapper.toResponseDTO(patient);
     }
 
-
     public void deletePatient(Long id) {
         if (!patientRepository.existsById(id)) {
             throw new EntityNotFoundException("Patient not found");
