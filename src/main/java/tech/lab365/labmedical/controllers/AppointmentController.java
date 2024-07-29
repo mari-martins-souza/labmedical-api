@@ -35,4 +35,10 @@ public class AppointmentController {
         return ResponseEntity.ok(updateAppointment);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAppointment(@PathVariable Long id) {
+        appointmentService.deleteAppointment(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

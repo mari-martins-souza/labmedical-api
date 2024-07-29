@@ -57,5 +57,10 @@ private final AppointmentMapper appointmentMapper;
         return appointmentMapper.toResponseDTO(savedAppointment);
     }
 
-
+    public void deleteAppointment(Long id) {
+        if (!appointmentRepository.existsById(id)) {
+            throw new EntityNotFoundException("Appointment not found");
+        }
+        appointmentRepository.deleteById(id);
+    }
 }
