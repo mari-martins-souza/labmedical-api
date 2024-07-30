@@ -1,52 +1,24 @@
 package tech.lab365.labmedical.dtos;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class AppointmentRequestDTO {
 
-    @NotNull
     private Long patient_id;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long appointment_id;
-
-    @NotBlank
-    @Size(min = 8, max = 64)
-    @Column(nullable = false, length = 64)
     private String reason;
-
-    @NotNull
-    @Column
     private LocalDate consultDate;
-
-    @NotNull
-    @Column
     private LocalTime consultTime;
-
-    @NotBlank
-    @Size(min = 16, max = 1024)
-    @Column(nullable = false, length = 1024)
     private String problemDescrip;
-
-    @Column
     private String prescMed;
-
-    @Size(min = 16, max = 256)
-    @Column(length = 256)
     private String dosagesPrec;
 
-    public @NotNull Long getPatient_id() {
+    public Long getPatient_id() {
         return patient_id;
     }
 
-    public void setPatient_id(@NotNull Long patient_id) {
+    public void setPatient_id(Long patient_id) {
         this.patient_id = patient_id;
     }
 
@@ -58,35 +30,35 @@ public class AppointmentRequestDTO {
         this.appointment_id = appointment_id;
     }
 
-    public @NotBlank @Size(min = 8, max = 64) String getReason() {
+    public String getReason() {
         return reason;
     }
 
-    public void setReason(@NotBlank @Size(min = 8, max = 64) String reason) {
+    public void setReason(String reason) {
         this.reason = reason;
     }
 
-    public @NotNull LocalDate getConsultDate() {
+    public LocalDate getConsultDate() {
         return consultDate;
     }
 
-    public void setConsultDate(@NotNull LocalDate consultDate) {
+    public void setConsultDate(LocalDate consultDate) {
         this.consultDate = consultDate;
     }
 
-    public @NotNull LocalTime getConsultTime() {
+    public LocalTime getConsultTime() {
         return consultTime;
     }
 
-    public void setConsultTime(@NotNull LocalTime consultTime) {
+    public void setConsultTime(LocalTime consultTime) {
         this.consultTime = consultTime;
     }
 
-    public @NotBlank @Size(min = 16, max = 1024) String getProblemDescrip() {
+    public String getProblemDescrip() {
         return problemDescrip;
     }
 
-    public void setProblemDescrip(@NotBlank @Size(min = 16, max = 1024) String problemDescrip) {
+    public void setProblemDescrip(String problemDescrip) {
         this.problemDescrip = problemDescrip;
     }
 
@@ -98,12 +70,11 @@ public class AppointmentRequestDTO {
         this.prescMed = prescMed;
     }
 
-    public @Size(min = 16, max = 256) String getDosagesPrec() {
+    public String getDosagesPrec() {
         return dosagesPrec;
     }
 
-    public void setDosagesPrec(@Size(min = 16, max = 256) String dosagesPrec) {
+    public void setDosagesPrec(String dosagesPrec) {
         this.dosagesPrec = dosagesPrec;
     }
-
 }

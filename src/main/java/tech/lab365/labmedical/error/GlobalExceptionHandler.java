@@ -32,6 +32,9 @@ public class GlobalExceptionHandler {
         if (e.getMessage().equals("Appointment not found")) {
             return new ResponseEntity<>("The appointment with the given ID was not found in database.", HttpStatus.NOT_FOUND);
         }
+        if (e.getMessage().equals("Exam not found")) {
+            return new ResponseEntity<>("The exam with the given ID was not found in database.", HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 

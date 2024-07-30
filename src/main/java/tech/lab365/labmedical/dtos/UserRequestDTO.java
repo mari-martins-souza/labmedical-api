@@ -1,31 +1,14 @@
 package tech.lab365.labmedical.dtos;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-
 import java.time.LocalDate;
 
 public class UserRequestDTO {
 
-    @NotBlank(message = "name is mandatory")
     private String name;
-
-    @NotBlank(message = "email is mandatory")
-    @Email
     private String email;
-
-    @NotNull(message = "birthdate is mandatory")
     private LocalDate birthdate;
-
-    @NotBlank(message = "cpf is mandatory")
-    @Size(max = 14)
     private String cpf;
-
-    @NotBlank(message = "password is mandatory")
     private String password;
-
     private String profile;
 
     public String getName() {
@@ -44,7 +27,7 @@ public class UserRequestDTO {
         this.email = email;
     }
 
-    public LocalDate getbirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
