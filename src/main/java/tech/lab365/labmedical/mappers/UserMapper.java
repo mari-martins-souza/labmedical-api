@@ -12,7 +12,7 @@ public class UserMapper {
         User user = new User();
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
-        user.setBirthdate(dto.getbirthdate());
+        user.setBirthdate(dto.getBirthdate());
         user.setCpf(dto.getCpf());
         user.setPassword(dto.getPassword());
         user.setProfile(dto.getProfile());

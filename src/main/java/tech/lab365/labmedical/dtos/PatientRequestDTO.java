@@ -1,99 +1,33 @@
 package tech.lab365.labmedical.dtos;
 
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import tech.lab365.labmedical.validation.Cpf;
-import tech.lab365.labmedical.validation.PhoneNumber;
-
 import java.time.LocalDate;
 
 public class PatientRequestDTO {
 
-    @NotBlank
-    @Size(min = 8, max = 64)
-    @Column(nullable = false, length = 64)
     private String name;
-
-    @NotBlank
-    @Column(nullable = false)
     private String gender;
-
-    @NotNull
-    @Column(nullable = false)
     private LocalDate birthdate;
-
-    @NotBlank
-    @Cpf
-    @Column(nullable = false, unique = true)
     private String cpf;
-
-    @NotBlank
-    @Size(max = 20)
-    @Column(nullable = false, length = 20)
     private String rg;
-
-    @NotBlank
-    @Column(nullable = false)
     private String issOrg;
-
-    @NotBlank
-    @Column(nullable = false)
     private String maritalStatus;
-
-    @NotBlank
-    @PhoneNumber
-    @Column(nullable = false)
     private String phone;
-
-    @Email
-    @Column(nullable = false)
     private String email;
-
-    @NotBlank
-    @Size(min = 3, max = 64)
-    @Column(nullable = false, length = 64)
     private String placeOfBirth;
-
-    @NotBlank
-    @Column(nullable = false)
     private String emergCont;
-
-    @NotBlank
-    @PhoneNumber
-    @Column(nullable = false)
     private String emergContNumber;
-
     private String listOfAllergies;
-
     private String careList;
-
-    @NotBlank
-    @Column(nullable = false)
     private String healthInsurance;
-
     private String healthInsuranceNumber;
-
     private LocalDate healthInsuranceVal;
-
-    @NotBlank
-    @Column(nullable = false)
     private String zipcode;
-
     private String street;
-
     private String addressNumber;
-
     private String complement;
-
     private String referencePoint;
-
     private String neighborhood;
-
     private String city;
-
     private String state;
 
     public String getName() {
@@ -104,12 +38,12 @@ public class PatientRequestDTO {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getGender() {
+        return gender;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public LocalDate getBirthdate() {
@@ -126,14 +60,6 @@ public class PatientRequestDTO {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public String getRg() {
@@ -166,6 +92,14 @@ public class PatientRequestDTO {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPlaceOfBirth() {

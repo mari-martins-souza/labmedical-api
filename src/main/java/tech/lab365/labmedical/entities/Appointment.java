@@ -12,7 +12,7 @@ import java.time.LocalTime;
 @Table(name="appointments")
 public class Appointment {
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "patient_id", referencedColumnName = "patient_id")
     private Patient patient;
 
