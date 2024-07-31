@@ -2,7 +2,10 @@ package tech.lab365.labmedical.services;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import tech.lab365.labmedical.dtos.MedicalRecordListResponseDTO;
 import tech.lab365.labmedical.dtos.PatientGetAllResponseDTO;
 import tech.lab365.labmedical.dtos.PatientRequestDTO;
 import tech.lab365.labmedical.dtos.PatientResponseDTO;
@@ -75,5 +78,15 @@ public class PatientService {
             throw new EntityNotFoundException("Patient not found");
         }
         patientRepository.deleteById(id);
+    }
+
+    public Page<MedicalRecordListResponseDTO> getAllMedicalRecords(String name, Long patient_id, Pageable pageable) {
+        Page<Patient> patients = patientRepository.findByNameAndPatientId(name, patient_id, pageable);
+
+        if (patients.isEmpty()) {
+            throw new EntityNotFoundException("No patients found");
+        }
+
+        return patients.map(patientMapper::toDTO);
     }
 }
