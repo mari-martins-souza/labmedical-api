@@ -2,8 +2,11 @@ package tech.lab365.labmedical.controllers;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tech.lab365.labmedical.dtos.MedicalRecordListResponseDTO;
 import tech.lab365.labmedical.dtos.PatientGetAllResponseDTO;
 import tech.lab365.labmedical.dtos.PatientRequestDTO;
 import tech.lab365.labmedical.dtos.PatientResponseDTO;
@@ -50,5 +53,15 @@ public class PatientController {
     public ResponseEntity<Void> deletePatient(@PathVariable Long id) {
         patientService.deletePatient(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/medical-record-list")
+    public ResponseEntity<Page<MedicalRecordListResponseDTO>> getAllMedicalRecords(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Long patient_id,
+            Pageable pageable
+    ) {
+        Page<MedicalRecordListResponseDTO> medicalRecords = patientService.getAllMedicalRecords(name, patient_id, pageable);
+        return ResponseEntity.ok(medicalRecords);
     }
 }

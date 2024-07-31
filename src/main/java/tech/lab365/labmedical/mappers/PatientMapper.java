@@ -1,6 +1,7 @@
 package tech.lab365.labmedical.mappers;
 
 import org.springframework.stereotype.Component;
+import tech.lab365.labmedical.dtos.MedicalRecordListResponseDTO;
 import tech.lab365.labmedical.dtos.PatientGetAllResponseDTO;
 import tech.lab365.labmedical.dtos.PatientRequestDTO;
 import tech.lab365.labmedical.dtos.PatientResponseDTO;
@@ -108,6 +109,14 @@ public class PatientMapper {
         patient.setCity(dto.getCity());
         patient.setState(dto.getState());
         patient.setUser(user);
+    }
+
+    public MedicalRecordListResponseDTO toDTO(Patient patient) {
+        MedicalRecordListResponseDTO dto = new MedicalRecordListResponseDTO();
+        dto.setPatientId(patient.getPatientId());
+        dto.setName(patient.getName());
+        dto.setInsurance(patient.getHealthInsurance());
+        return dto;
     }
 
 }
