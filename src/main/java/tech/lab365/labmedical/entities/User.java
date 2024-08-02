@@ -8,10 +8,20 @@ import jakarta.validation.constraints.Size;
 import tech.lab365.labmedical.validation.Cpf;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name="users")
 public class User {
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -42,8 +52,6 @@ public class User {
     @Size(max = 255)
     @Column(nullable = false, length = 255)
     private String password;
-
-    private String profile;
 
     public User() {
     }
@@ -92,11 +100,19 @@ public class User {
         this.password = password;
     }
 
-    public String getProfile() {
-        return profile;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setProfile(String profile) {
-        this.profile = profile;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public Long getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(Long user_id) {
+        this.user_id = user_id;
     }
 }

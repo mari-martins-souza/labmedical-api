@@ -9,7 +9,7 @@ public class UserResponseDTO {
     private String email;
     private LocalDate birthdate;
     private String cpf;
-    private String profile;
+    private String roleName;
 
     public Long getId() {
         return userId;
@@ -51,11 +51,11 @@ public class UserResponseDTO {
         this.cpf = cpf;
     }
 
-    public String getProfile() {
-        return profile;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setProfile(String profile) {
-        this.profile = profile;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 }

@@ -9,7 +9,7 @@ public class UserRequestDTO {
     private LocalDate birthdate;
     private String cpf;
     private String password;
-    private String profile;
+    private String roleName;
 
     public String getName() {
         return name;
@@ -51,11 +51,11 @@ public class UserRequestDTO {
         this.password = password;
     }
 
-    public String getProfile() {
-        return profile;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setProfile(String profile) {
-        this.profile = profile;
+    public void setRoleName(String role) {
+        this.roleName = role;
     }
 }
