@@ -28,8 +28,32 @@ public class ExamService {
         this.examMapper = examMapper;
     }
 
-    public ExamResponseDTO registerExam(ExamRequestDTO examRequestDTO) {
-        Patient patient = patientRepository.findById(examRequestDTO.getPatient_id()).orElseThrow(() -> new EntityNotFoundException("Patient not found"));
+    public ExamResponseDTO registerExam(ExamRequestDTO examRequestDTO) throws BadRequestException {
+        Patient patient = patientRepository.findById(examRequestDTO.getId()).orElseThrow(() -> new EntityNotFoundException("Patient not found"));
+
+        if (examRequestDTO.getExamTime() == null) {
+            throw new BadRequestException("examTime is mandatory");
+        }
+
+        if (examRequestDTO.getExamDate() == null) {
+            throw new BadRequestException("examDate is mandatory");
+        }
+
+        if (examRequestDTO.getExamType() == null || examRequestDTO.getExamType().isEmpty()) {
+            throw new BadRequestException("examType is mandatory");
+        }
+
+        if (examRequestDTO.getLab() == null || examRequestDTO.getLab().isEmpty()) {
+            throw new BadRequestException("lab is mandatory");
+        }
+
+        if (examRequestDTO.getExam() == null || examRequestDTO.getExam().isEmpty()) {
+            throw new BadRequestException("exam is mandatory");
+        }
+
+        if (examRequestDTO.getId() == null) {
+            throw new BadRequestException("patient id is mandatory");
+        }
 
         Exam exam = examMapper.toExam(examRequestDTO, patient);
 
@@ -48,8 +72,32 @@ public class ExamService {
         Exam exam = examRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
                 "Exam not found"));
 
-        if (!exam.getPatient().getPatientId().equals(examRequestDTO.getPatient_id())) {
+        if (!exam.getPatient().getId().equals(examRequestDTO.getId())) {
             throw new BadRequestException("Patient ID in the request does not match the Patient ID in the existing exam");
+        }
+
+        if (examRequestDTO.getExamTime() == null) {
+            throw new BadRequestException("examTime is mandatory");
+        }
+
+        if (examRequestDTO.getExamDate() == null) {
+            throw new BadRequestException("examDate is mandatory");
+        }
+
+        if (examRequestDTO.getExamType() == null || examRequestDTO.getExamType().isEmpty()) {
+            throw new BadRequestException("examType is mandatory");
+        }
+
+        if (examRequestDTO.getLab() == null || examRequestDTO.getLab().isEmpty()) {
+            throw new BadRequestException("lab is mandatory");
+        }
+
+        if (examRequestDTO.getExam() == null || examRequestDTO.getExam().isEmpty()) {
+            throw new BadRequestException("exam is mandatory");
+        }
+
+        if (examRequestDTO.getId() == null) {
+            throw new BadRequestException("patient id is mandatory");
         }
 
         examMapper.updateExamFromDTO(exam, examRequestDTO);

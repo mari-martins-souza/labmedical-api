@@ -26,8 +26,29 @@ private final AppointmentMapper appointmentMapper;
         this.appointmentMapper = appointmentMapper;
     }
 
-    public AppointmentResponseDTO registerAppointment(AppointmentRequestDTO appointmentRequestDTO) {
-        Patient patient = patientRepository.findById(appointmentRequestDTO.getPatient_id()).orElseThrow(() -> new EntityNotFoundException("Patient not found"));
+    public AppointmentResponseDTO registerAppointment(AppointmentRequestDTO appointmentRequestDTO) throws BadRequestException {
+        Patient patient =
+                patientRepository.findById(appointmentRequestDTO.getId()).orElseThrow(() -> new EntityNotFoundException("Patient not found"));
+
+        if (appointmentRequestDTO.getReason() == null || appointmentRequestDTO.getReason().isEmpty()) {
+            throw new BadRequestException("reason is mandatory");
+        }
+
+        if (appointmentRequestDTO.getConsultDate() == null) {
+            throw new BadRequestException("consultDate is mandatory");
+        }
+
+        if (appointmentRequestDTO.getConsultTime() == null) {
+            throw new BadRequestException("consultTime is mandatory");
+        }
+
+        if (appointmentRequestDTO.getId() == null) {
+            throw new BadRequestException("patient id is mandatory");
+        }
+
+        if (appointmentRequestDTO.getProblemDescrip() == null || appointmentRequestDTO.getProblemDescrip().isEmpty()) {
+            throw new BadRequestException("problemDescrip is mandatory");
+        }
 
         Appointment appointment = appointmentMapper.toAppointment(appointmentRequestDTO, patient);
 
@@ -46,8 +67,28 @@ private final AppointmentMapper appointmentMapper;
         Appointment appointment = appointmentRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
                 "Appointment not found"));
 
-        if (!appointment.getPatient().getPatientId().equals(appointmentRequestDTO.getPatient_id())) {
+        if (!appointment.getPatient().getId().equals(appointmentRequestDTO.getId())) {
             throw new BadRequestException("Patient ID in the request does not match the Patient ID in the existing appointment");
+        }
+
+        if (appointmentRequestDTO.getReason() == null || appointmentRequestDTO.getReason().isEmpty()) {
+            throw new BadRequestException("reason is mandatory");
+        }
+
+        if (appointmentRequestDTO.getConsultDate() == null) {
+            throw new BadRequestException("consultDate is mandatory");
+        }
+
+        if (appointmentRequestDTO.getConsultTime() == null) {
+            throw new BadRequestException("consultTime is mandatory");
+        }
+
+        if (appointmentRequestDTO.getId() == null) {
+            throw new BadRequestException("patient id is mandatory");
+        }
+
+        if (appointmentRequestDTO.getProblemDescrip() == null || appointmentRequestDTO.getProblemDescrip().isEmpty()) {
+            throw new BadRequestException("problemDescrip is mandatory");
         }
 
         appointmentMapper.updateAppointmentFromDTO(appointment, appointmentRequestDTO);

@@ -13,12 +13,8 @@ import jakarta.validation.constraints.Size;
 public class Exam {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "patient_id", referencedColumnName = "patient_id")
+    @JoinColumn(name = "id", referencedColumnName = "id")
     private Patient patient;
-
-    @NotBlank
-    @Column(nullable = false)
-    private String patientName;
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -63,14 +59,6 @@ public class Exam {
 
     public void setPatient(Patient patient) {
         this.patient = patient;
-    }
-
-    public @NotBlank String getPatientName() {
-        return patientName;
-    }
-
-    public void setPatientName(@NotBlank String patientName) {
-        this.patientName = patientName;
     }
 
     public Long getExam_id() {
@@ -136,4 +124,5 @@ public class Exam {
     public void setResult(@Size(min = 16, max = 1024) String result) {
         this.result = result;
     }
+
 }

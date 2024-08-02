@@ -14,9 +14,13 @@ import java.time.LocalDate;
 @Table(name="patients")
 public class Patient {
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    private User user;
+
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long patient_id;
+    private Long id;
 
     @NotBlank
     @Size(min = 8, max = 64)
@@ -55,7 +59,7 @@ public class Patient {
     private String phone;
 
     @Email
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @NotBlank
@@ -102,15 +106,11 @@ public class Patient {
 
     private String state;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    private User user;
-
     public Patient() {
     }
 
-    public Long getPatientId() {
-        return patient_id;
+    public Long getId() {
+        return id;
     }
 
     public @NotBlank @Size(min = 8, max = 64) String getName() {

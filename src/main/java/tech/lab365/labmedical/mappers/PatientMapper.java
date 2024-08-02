@@ -68,7 +68,7 @@ public class PatientMapper {
         dto.setNeighborhood(patient.getNeighborhood());
         dto.setCity(patient.getCity());
         dto.setState(patient.getState());
-        dto.setPatient_id((patient.getPatientId()));
+        dto.setId((patient.getId()));
         return dto;
     }
 
@@ -113,7 +113,7 @@ public class PatientMapper {
 
     public MedicalRecordListResponseDTO toDTO(Patient patient) {
         MedicalRecordListResponseDTO dto = new MedicalRecordListResponseDTO();
-        dto.setPatientId(patient.getPatientId());
+        dto.setId(patient.getId());
         dto.setName(patient.getName());
         dto.setInsurance(patient.getHealthInsurance());
         return dto;
