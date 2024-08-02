@@ -5,7 +5,7 @@ import java.time.LocalTime;
 
 public class AppointmentRequestDTO {
 
-    private Long patient_id;
+    private Long id;
     private Long appointment_id;
     private String reason;
     private LocalDate consultDate;
@@ -14,12 +14,12 @@ public class AppointmentRequestDTO {
     private String prescMed;
     private String dosagesPrec;
 
-    public Long getPatient_id() {
-        return patient_id;
+    public Long getId() {
+        return id;
     }
 
-    public void setPatient_id(Long patient_id) {
-        this.patient_id = patient_id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getAppointment_id() {

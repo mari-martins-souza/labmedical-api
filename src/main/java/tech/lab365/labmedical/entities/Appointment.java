@@ -13,12 +13,8 @@ import java.time.LocalTime;
 public class Appointment {
 
     @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "patient_id", referencedColumnName = "patient_id")
+    @JoinColumn(name = "id", referencedColumnName = "id")
     private Patient patient;
-
-    @NotBlank
-    @Column(nullable = false)
-    private String patientName;
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
@@ -116,11 +112,4 @@ public class Appointment {
         this.dosagesPrec = dosagesPrec;
     }
 
-    public String getPatientName() {
-        return patientName;
-    }
-
-    public void setPatientName(String name) {
-        this.patientName = name;
-    }
 }

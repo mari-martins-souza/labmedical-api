@@ -10,7 +10,6 @@ import tech.lab365.labmedical.entities.Patient;
 public class AppointmentMapper {
     public Appointment toAppointment(AppointmentRequestDTO dto, Patient patient) {
         Appointment appointment = new Appointment();
-        appointment.setPatientName(patient.getName());
         appointment.setReason(dto.getReason());
         appointment.setConsultDate(dto.getConsultDate());
         appointment.setConsultTime(dto.getConsultTime());
@@ -26,7 +25,7 @@ public class AppointmentMapper {
         Patient patient = appointment.getPatient();
         dto.setAppointment_id(appointment.getAppointment_id());
         dto.setPatientName(patient.getName());
-        dto.setPatient_id(patient.getPatientId());
+        dto.setId(patient.getId());
         dto.setReason(appointment.getReason());
         dto.setConsultDate(appointment.getConsultDate());
         dto.setConsultTime(appointment.getConsultTime());

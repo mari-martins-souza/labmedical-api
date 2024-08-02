@@ -8,7 +8,7 @@ public class PatientResponseDTO {
     private String email;
     private LocalDate birthdate;
     private String cpf;
-    private Long patient_id;
+    private Long id;
     private String gender;
     private String rg;
     private String issOrg;
@@ -63,12 +63,12 @@ public class PatientResponseDTO {
         this.cpf = cpf;
     }
 
-    public Long getPatient_id() {
-        return patient_id;
+    public Long getId() {
+        return id;
     }
 
-    public void setPatient_id(Long patient_id) {
-        this.patient_id = patient_id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getGender() {

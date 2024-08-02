@@ -2,16 +2,14 @@ package tech.lab365.labmedical.dtos;
 
 public class MedicalRecordListResponseDTO {
 
-    private Long patientId;
+    private Long id;
     private String name;
     private String insurance;
 
-    public Long getPatientId() {
-        return patientId;
-    }
+    public Long getId() { return id; }
 
-    public void setPatientId(Long patientId) {
-        this.patientId = patientId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

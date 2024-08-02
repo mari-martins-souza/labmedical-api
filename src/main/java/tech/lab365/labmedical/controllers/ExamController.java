@@ -19,7 +19,7 @@ public class ExamController {
     private ExamService examService;
 
     @PostMapping
-    public ResponseEntity<ExamResponseDTO> registerExam(@Valid @RequestBody ExamRequestDTO examRequestDTO) {
+    public ResponseEntity<ExamResponseDTO> registerExam(@Valid @RequestBody ExamRequestDTO examRequestDTO) throws BadRequestException {
         ExamResponseDTO examResponseDTO = examService.registerExam(examRequestDTO);
         return ResponseEntity.ok(examResponseDTO);
     }
