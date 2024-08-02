@@ -5,7 +5,7 @@ import java.time.LocalTime;
 
 public class ExamResponseDTO {
 
-    private Long patient_id;
+    private Long id;
     private String patientName;
     private Long exam_id;
     private String exam;
@@ -16,12 +16,12 @@ public class ExamResponseDTO {
     private String docUrl;
     private String result;
 
-    public Long getPatient_id() {
-        return patient_id;
+    public Long getId() {
+        return id;
     }
 
-    public void setPatient_id(Long patient_id) {
-        this.patient_id = patient_id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getPatientName() {

@@ -11,7 +11,6 @@ import tech.lab365.labmedical.entities.Patient;
 public class ExamMapper {
     public Exam toExam(ExamRequestDTO dto, Patient patient) {
         Exam exam = new Exam();
-        exam.setPatientName(patient.getName());
         exam.setExam(dto.getExam());
         exam.setExamDate(dto.getExamDate());
         exam.setExamTime(dto.getExamTime());
@@ -28,7 +27,7 @@ public class ExamMapper {
         Patient patient = exam.getPatient();
         dto.setExam_id(exam.getExam_id());
         dto.setPatientName(patient.getName());
-        dto.setPatient_id(patient.getPatientId());
+        dto.setId(patient.getId());
         dto.setExam(exam.getExam());
         dto.setExamDate(exam.getExamDate());
         dto.setExamTime(exam.getExamTime());

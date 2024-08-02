@@ -1,9 +1,11 @@
 package tech.lab365.labmedical.controllers;
 
 import jakarta.validation.Valid;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.lab365.labmedical.dtos.MedicalRecordListResponseDTO;
@@ -23,7 +25,7 @@ public class PatientController {
     private PatientService patientService;
 
     @PostMapping
-    public ResponseEntity<Patient> registerPatient(@Valid @RequestBody PatientRequestDTO patientRequestDTO) {
+    public ResponseEntity<Patient> registerPatient(@Valid @RequestBody PatientRequestDTO patientRequestDTO) throws BadRequestException {
         Patient patientResponseDTO = patientService.registerPatient(patientRequestDTO);
         return ResponseEntity.ok(patientResponseDTO);
     }
@@ -44,9 +46,14 @@ public class PatientController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PatientResponseDTO> updatePatient(@PathVariable Long id, @Valid @RequestBody PatientRequestDTO patientRequestDTO) {
-        PatientResponseDTO updatedPatient = patientService.updatePatient(id, patientRequestDTO);
-        return ResponseEntity.ok(updatedPatient);
+    public ResponseEntity<String> updatePatient(@PathVariable Long id, @Valid @RequestBody PatientRequestDTO patientRequestDTO) {
+        try {
+            PatientResponseDTO updatedPatient = patientService.updatePatient(id, patientRequestDTO);
+            return ResponseEntity.ok(updatedPatient.toString());
+        } catch (BadRequestException e) {
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")
@@ -58,10 +65,10 @@ public class PatientController {
     @GetMapping("/medical-record-list")
     public ResponseEntity<Page<MedicalRecordListResponseDTO>> getAllMedicalRecords(
             @RequestParam(required = false) String name,
-            @RequestParam(required = false) Long patient_id,
+            @RequestParam(required = false) Long id,
             Pageable pageable
     ) {
-        Page<MedicalRecordListResponseDTO> medicalRecords = patientService.getAllMedicalRecords(name, patient_id, pageable);
+        Page<MedicalRecordListResponseDTO> medicalRecords = patientService.getAllMedicalRecords(name, id, pageable);
         return ResponseEntity.ok(medicalRecords);
     }
 }

@@ -1,6 +1,8 @@
 package tech.lab365.labmedical.services;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +13,7 @@ import tech.lab365.labmedical.dtos.PatientRequestDTO;
 import tech.lab365.labmedical.dtos.PatientResponseDTO;
 import tech.lab365.labmedical.entities.Patient;
 import tech.lab365.labmedical.entities.User;
+import tech.lab365.labmedical.error.ConflictException;
 import tech.lab365.labmedical.mappers.PatientMapper;
 import tech.lab365.labmedical.mappers.UserMapper;
 import tech.lab365.labmedical.repositories.PatientRepository;
@@ -36,16 +39,65 @@ public class PatientService {
         this.userMapper = userMapper;
     }
 
-    public Patient registerPatient(PatientRequestDTO patientRequestDTO) {
+    public Patient registerPatient(PatientRequestDTO patientRequestDTO) throws BadRequestException {
+
+        if (patientRequestDTO.getName() == null || patientRequestDTO.getName().isEmpty()) {
+            throw new BadRequestException("name is mandatory");
+        }
+        if (patientRequestDTO.getGender() == null || patientRequestDTO.getGender().isEmpty()) {
+            throw new BadRequestException("gender is mandatory");
+        }
+        if (patientRequestDTO.getBirthdate() == null) {
+            throw new BadRequestException("birthdate is mandatory");
+        }
+        if (patientRequestDTO.getCpf() == null || patientRequestDTO.getCpf().isEmpty()) {
+            throw new BadRequestException("CPF is mandatory");
+        }
+        if (patientRequestDTO.getRg() == null || patientRequestDTO.getRg().isEmpty()) {
+            throw new BadRequestException("RG is mandatory");
+        }
+        if (patientRequestDTO.getIssOrg() == null || patientRequestDTO.getIssOrg().isEmpty()) {
+            throw new BadRequestException("issOrg is mandatory");
+        }
+        if (patientRequestDTO.getMaritalStatus() == null || patientRequestDTO.getMaritalStatus().isEmpty()) {
+            throw new BadRequestException("marital status is mandatory");
+        }
+        if (patientRequestDTO.getPhone() == null || patientRequestDTO.getPhone().isEmpty()) {
+            throw new BadRequestException("phone is mandatory");
+        }
+        if (patientRequestDTO.getEmail() == null || patientRequestDTO.getEmail().isEmpty()) {
+            throw new BadRequestException("email is mandatory");
+        }
+        if (patientRequestDTO.getPlaceOfBirth() == null || patientRequestDTO.getPlaceOfBirth().isEmpty()) {
+            throw new BadRequestException("place of birth is mandatory");
+        }
+        if (patientRequestDTO.getHealthInsurance() == null || patientRequestDTO.getHealthInsurance().isEmpty()) {
+            throw new BadRequestException("insurance is mandatory");
+        }
+        if (patientRequestDTO.getZipcode() == null || patientRequestDTO.getZipcode().isEmpty()) {
+            throw new BadRequestException("cep is mandatory");
+        }
 
         User user = userMapper.toUser(patientRequestDTO);
+
+        if (userRepository.existsByCpf(user.getCpf())) {
+            throw new ConflictException("User/patient already exists");
+        }
+
         userRepository.save(user);
 
         Patient patient = patientMapper.toPatient(patientRequestDTO, user);
+
+        if (patientRepository.existsByCpf(patient.getCpf())) {
+            throw new ConflictException("User/patient already exists");
+        }
+
         patientRepository.save(patient);
 
         return patient;
     }
+
+
 
     public List<PatientGetAllResponseDTO> getAllPatients(String name, String phone, String email) {
         return patientRepository.findAll().stream()
@@ -55,11 +107,49 @@ public class PatientService {
 
     public PatientResponseDTO getPatient(Long id) {
         Patient patient = patientRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Patient not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Patient not found"));
         return patientMapper.toResponseDTO(patient);
     }
 
-    public PatientResponseDTO updatePatient(Long id, PatientRequestDTO patientRequestDTO) {
+    public PatientResponseDTO updatePatient(Long id, PatientRequestDTO patientRequestDTO) throws BadRequestException {
+
+        if (patientRequestDTO.getName() == null || patientRequestDTO.getName().isEmpty()) {
+            throw new BadRequestException("name is mandatory");
+        }
+        if (patientRequestDTO.getGender() == null || patientRequestDTO.getGender().isEmpty()) {
+            throw new BadRequestException("gender is mandatory");
+        }
+        if (patientRequestDTO.getBirthdate() == null) {
+            throw new BadRequestException("birthdate is mandatory");
+        }
+        if (patientRequestDTO.getCpf() == null || patientRequestDTO.getCpf().isEmpty()) {
+            throw new BadRequestException("CPF is mandatory");
+        }
+        if (patientRequestDTO.getRg() == null || patientRequestDTO.getRg().isEmpty()) {
+            throw new BadRequestException("RG is mandatory");
+        }
+        if (patientRequestDTO.getIssOrg() == null || patientRequestDTO.getIssOrg().isEmpty()) {
+            throw new BadRequestException("issOrg is mandatory");
+        }
+        if (patientRequestDTO.getMaritalStatus() == null || patientRequestDTO.getMaritalStatus().isEmpty()) {
+            throw new BadRequestException("marital status is mandatory");
+        }
+        if (patientRequestDTO.getPhone() == null || patientRequestDTO.getPhone().isEmpty()) {
+            throw new BadRequestException("phone is mandatory");
+        }
+        if (patientRequestDTO.getEmail() == null || patientRequestDTO.getEmail().isEmpty()) {
+            throw new BadRequestException("email is mandatory");
+        }
+        if (patientRequestDTO.getPlaceOfBirth() == null || patientRequestDTO.getPlaceOfBirth().isEmpty()) {
+            throw new BadRequestException("place of birth is mandatory");
+        }
+        if (patientRequestDTO.getHealthInsurance() == null || patientRequestDTO.getHealthInsurance().isEmpty()) {
+            throw new BadRequestException("insurance is mandatory");
+        }
+        if (patientRequestDTO.getZipcode() == null || patientRequestDTO.getZipcode().isEmpty()) {
+            throw new BadRequestException("cep is mandatory");
+        }
+
         Patient patient = patientRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Patient not found"));
 
@@ -80,8 +170,8 @@ public class PatientService {
         patientRepository.deleteById(id);
     }
 
-    public Page<MedicalRecordListResponseDTO> getAllMedicalRecords(String name, Long patient_id, Pageable pageable) {
-        Page<Patient> patients = patientRepository.findByNameAndPatientId(name, patient_id, pageable);
+    public Page<MedicalRecordListResponseDTO> getAllMedicalRecords(String name, Long id, Pageable pageable) {
+        Page<Patient> patients = patientRepository.findByNameAndPatientId(name, id, pageable);
 
         if (patients.isEmpty()) {
             throw new EntityNotFoundException("No patients found");
