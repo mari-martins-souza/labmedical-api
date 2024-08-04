@@ -25,7 +25,7 @@ public class ExamMapper {
     public ExamResponseDTO toResponseDTO (Exam exam) {
         ExamResponseDTO dto = new ExamResponseDTO();
         Patient patient = exam.getPatient();
-        dto.setExam_id(exam.getExam_id());
+        dto.setExamId(exam.getExamId());
         dto.setPatientName(patient.getName());
         dto.setId(patient.getId());
         dto.setExam(exam.getExam());

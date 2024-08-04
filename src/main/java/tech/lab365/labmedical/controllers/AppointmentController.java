@@ -9,6 +9,8 @@ import tech.lab365.labmedical.dtos.AppointmentRequestDTO;
 import tech.lab365.labmedical.dtos.AppointmentResponseDTO;
 import tech.lab365.labmedical.services.AppointmentService;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/appointments")
 public class AppointmentController {
@@ -23,20 +25,20 @@ public class AppointmentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AppointmentResponseDTO> getAppointment(@PathVariable Long id) {
+    public ResponseEntity<AppointmentResponseDTO> getAppointment(@PathVariable UUID id) {
         AppointmentResponseDTO appointment = appointmentService.getAppointment(id);
         return ResponseEntity.ok(appointment);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AppointmentResponseDTO> updateAppointment(@PathVariable Long id,
+    public ResponseEntity<AppointmentResponseDTO> updateAppointment(@PathVariable UUID id,
                                                                     @Valid @RequestBody AppointmentRequestDTO appointmentRequestDTO) throws BadRequestException {
         AppointmentResponseDTO updateAppointment = appointmentService.updateAppointment(id, appointmentRequestDTO);
         return ResponseEntity.ok(updateAppointment);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAppointment(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteAppointment(@PathVariable UUID id) {
         appointmentService.deleteAppointment(id);
         return ResponseEntity.noContent().build();
     }

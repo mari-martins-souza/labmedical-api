@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import tech.lab365.labmedical.dtos.PatientMedicalRecordResponseDTO;
 import tech.lab365.labmedical.services.PatientMedicalRecordService;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/patients")
 public class PatientMedicalRecordController {
@@ -17,7 +19,7 @@ public class PatientMedicalRecordController {
     private PatientMedicalRecordService patientMedicalRecordService;
 
     @GetMapping("/{id}/medical-record")
-    public ResponseEntity<PatientMedicalRecordResponseDTO> getPatientMedicalRecord(@PathVariable Long id) {
+    public ResponseEntity<PatientMedicalRecordResponseDTO> getPatientMedicalRecord(@PathVariable UUID id) {
         PatientMedicalRecordResponseDTO medicalRecord = patientMedicalRecordService.getPatientMedicalRecord(id);
         return ResponseEntity.ok(medicalRecord);
     }

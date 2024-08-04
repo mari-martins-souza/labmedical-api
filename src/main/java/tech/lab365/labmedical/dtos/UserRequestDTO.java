@@ -55,7 +55,7 @@ public class UserRequestDTO {
         return roleName;
     }
 
-    public void setRoleName(String role) {
-        this.roleName = role;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 }

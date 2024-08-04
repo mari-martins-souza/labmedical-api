@@ -14,6 +14,7 @@ import tech.lab365.labmedical.repositories.ExamRepository;
 import tech.lab365.labmedical.repositories.PatientRepository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PatientMedicalRecordService {
@@ -31,12 +32,12 @@ public class PatientMedicalRecordService {
         this.patientRepository = patientRepository;
     }
 
-    public PatientMedicalRecordResponseDTO getPatientMedicalRecord(Long patient_id) {
-        Patient patient = patientRepository.findById(patient_id)
+    public PatientMedicalRecordResponseDTO getPatientMedicalRecord(UUID id) {
+        Patient patient = patientRepository.findById(id)
                 .orElseThrow(()-> new EntityNotFoundException("Patient not found"));
 
-        List<Exam> exams = examRepository.findByPatient_Id(patient_id);
-        List<Appointment> appointments = appointmentRepository.findByPatient_Id(patient_id);
+        List<Exam> exams = examRepository.findByPatient_Id(id);
+        List<Appointment> appointments = appointmentRepository.findByPatient_Id(id);
 
         return patientMedicalRecordMapper.toDto(patient, exams, appointments);
     }

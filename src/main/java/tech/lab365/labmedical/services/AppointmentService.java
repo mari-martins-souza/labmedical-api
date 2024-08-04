@@ -12,6 +12,8 @@ import tech.lab365.labmedical.mappers.AppointmentMapper;
 import tech.lab365.labmedical.repositories.AppointmentRepository;
 import tech.lab365.labmedical.repositories.PatientRepository;
 
+import java.util.UUID;
+
 @Service
 public class AppointmentService {
 
@@ -57,13 +59,13 @@ private final AppointmentMapper appointmentMapper;
         return appointmentMapper.toResponseDTO(savedAppointment);
     }
 
-    public AppointmentResponseDTO getAppointment(Long id) {
+    public AppointmentResponseDTO getAppointment(UUID id) {
         Appointment appointment = appointmentRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
                 "Appointment not found"));
         return appointmentMapper.toResponseDTO(appointment);
     }
 
-    public AppointmentResponseDTO updateAppointment(Long id, AppointmentRequestDTO appointmentRequestDTO) throws BadRequestException {
+    public AppointmentResponseDTO updateAppointment(UUID id, AppointmentRequestDTO appointmentRequestDTO) throws BadRequestException {
         Appointment appointment = appointmentRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
                 "Appointment not found"));
 
@@ -98,7 +100,7 @@ private final AppointmentMapper appointmentMapper;
         return appointmentMapper.toResponseDTO(savedAppointment);
     }
 
-    public void deleteAppointment(Long id) {
+    public void deleteAppointment(UUID id) {
         if (!appointmentRepository.existsById(id)) {
             throw new EntityNotFoundException("Appointment not found");
         }

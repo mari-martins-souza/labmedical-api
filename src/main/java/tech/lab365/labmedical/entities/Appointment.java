@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.UUID;
 
 @Entity
 @Table(name="appointments")
@@ -17,8 +18,8 @@ public class Appointment {
     private Patient patient;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long appointment_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID appointmentId;
 
     @NotBlank
     @Size(min = 8, max = 64)
@@ -56,12 +57,12 @@ public class Appointment {
         this.patient = patient;
     }
 
-    public Long getAppointment_id() {
-        return appointment_id;
+    public UUID getAppointmentId() {
+        return appointmentId;
     }
 
-    public void setAppointment_id(Long appointment_id) {
-        this.appointment_id = appointment_id;
+    public void setAppointment_id(UUID appointmentId) {
+        this.appointmentId = appointmentId;
     }
 
     public @NotBlank @Size(min = 8, max = 64) String getReason() {

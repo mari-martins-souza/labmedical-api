@@ -20,6 +20,7 @@ import tech.lab365.labmedical.repositories.PatientRepository;
 import tech.lab365.labmedical.repositories.UserRepository;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 
@@ -105,13 +106,13 @@ public class PatientService {
                 .collect(Collectors.toList());
     }
 
-    public PatientResponseDTO getPatient(Long id) {
+    public PatientResponseDTO getPatient(UUID id) {
         Patient patient = patientRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Patient not found"));
         return patientMapper.toResponseDTO(patient);
     }
 
-    public PatientResponseDTO updatePatient(Long id, PatientRequestDTO patientRequestDTO) throws BadRequestException {
+    public PatientResponseDTO updatePatient(UUID id, PatientRequestDTO patientRequestDTO) throws BadRequestException {
 
         if (patientRequestDTO.getName() == null || patientRequestDTO.getName().isEmpty()) {
             throw new BadRequestException("name is mandatory");
@@ -163,14 +164,14 @@ public class PatientService {
         return patientMapper.toResponseDTO(patient);
     }
 
-    public void deletePatient(Long id) {
+    public void deletePatient(UUID id) {
         if (!patientRepository.existsById(id)) {
             throw new EntityNotFoundException("Patient not found");
         }
         patientRepository.deleteById(id);
     }
 
-    public Page<MedicalRecordListResponseDTO> getAllMedicalRecords(String name, Long id, Pageable pageable) {
+    public Page<MedicalRecordListResponseDTO> getAllMedicalRecords(String name, UUID id, Pageable pageable) {
         Page<Patient> patients = patientRepository.findByNameAndPatientId(name, id, pageable);
 
         if (patients.isEmpty()) {

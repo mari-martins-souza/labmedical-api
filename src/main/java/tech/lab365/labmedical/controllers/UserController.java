@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.lab365.labmedical.dtos.UserRequestDTO;
 import tech.lab365.labmedical.dtos.UserResponseDTO;
+import tech.lab365.labmedical.repositories.RoleRepository;
+import tech.lab365.labmedical.repositories.UserRepository;
 import tech.lab365.labmedical.services.UserService;
 
 @RestController
@@ -15,10 +17,14 @@ import tech.lab365.labmedical.services.UserService;
 public class UserController {
 
     private final UserService userService;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserRepository userRepository, RoleRepository roleRepository) {
         this.userService = userService;
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     @PostMapping

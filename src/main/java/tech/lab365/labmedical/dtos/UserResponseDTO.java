@@ -1,21 +1,22 @@
 package tech.lab365.labmedical.dtos;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class UserResponseDTO {
 
-    private Long userId;
+    private UUID userId;
     private String name;
     private String email;
     private LocalDate birthdate;
     private String cpf;
     private String roleName;
 
-    public Long getId() {
+    public UUID getId() {
         return userId;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.userId = id;
     }
 

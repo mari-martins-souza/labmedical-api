@@ -14,6 +14,8 @@ import tech.lab365.labmedical.mappers.ExamMapper;
 import tech.lab365.labmedical.repositories.ExamRepository;
 import tech.lab365.labmedical.repositories.PatientRepository;
 
+import java.util.UUID;
+
 @Service
 public class ExamService {
 
@@ -62,13 +64,13 @@ public class ExamService {
         return examMapper.toResponseDTO(savedExam);
     }
 
-    public ExamResponseDTO getExam(Long id) {
+    public ExamResponseDTO getExam(UUID id) {
         Exam exam = examRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
                 "Exam not found"));
         return examMapper.toResponseDTO(exam);
     }
 
-    public ExamResponseDTO updateExam(Long id, ExamRequestDTO examRequestDTO) throws BadRequestException {
+    public ExamResponseDTO updateExam(UUID id, ExamRequestDTO examRequestDTO) throws BadRequestException {
         Exam exam = examRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
                 "Exam not found"));
 
@@ -107,7 +109,7 @@ public class ExamService {
         return examMapper.toResponseDTO(savedExam);
     }
 
-    public void deleteExam(Long id) {
+    public void deleteExam(UUID id) {
         if (!examRepository.existsById(id)) {
             throw new EntityNotFoundException("Exam not found");
         }

@@ -5,27 +5,25 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import tech.lab365.labmedical.security.controller.dtos.LoginRequestDTO;
 import tech.lab365.labmedical.validation.Cpf;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name="users")
 public class User {
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles = new HashSet<>();
+    @NotBlank
+    @Column(nullable = false)
+    private String roleName;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long user_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
+    private UUID userId;
 
     @NotBlank
     @Size(max = 255)
@@ -56,63 +54,65 @@ public class User {
     public User() {
     }
 
-    public Long getUserId() {
-        return user_id;
+    public @NotBlank String getRoleName() {
+        return roleName;
     }
 
-    public String getName() {
+    public void setRoleName(@NotBlank String roleName) {
+        this.roleName = roleName;
+    }
+
+    public UUID getUserId() {
+        return userId;
+    }
+
+    public void setUserId(UUID userId) {
+        this.userId = userId;
+    }
+
+    public @NotBlank @Size(max = 255) String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(@NotBlank @Size(max = 255) String name) {
         this.name = name;
     }
 
-    public String getEmail() {
+    public @NotBlank @Email @Size(max = 255) String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(@NotBlank @Email @Size(max = 255) String email) {
         this.email = email;
     }
 
-    public LocalDate getBirthdate() {
+    public @NotNull LocalDate getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(LocalDate birthdate) {
+    public void setBirthdate(@NotNull LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 
-    public String getCpf() {
+    public @NotBlank @Size(min = 11, max = 14) String getCpf() {
         return cpf;
     }
 
-    public void setCpf(String cpf) {
+    public void setCpf(@NotBlank @Size(min = 11, max = 14) String cpf) {
         this.cpf = cpf;
     }
 
-    public String getPassword() {
+    public @NotBlank @Size(max = 255) String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(@NotBlank @Size(max = 255) String password) {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public boolean isLoginValid(LoginRequestDTO loginRequestDTO, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(loginRequestDTO.password(), this.password);
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
 
-    public Long getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
-    }
 }

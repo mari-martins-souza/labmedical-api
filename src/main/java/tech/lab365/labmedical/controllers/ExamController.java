@@ -11,6 +11,8 @@ import tech.lab365.labmedical.dtos.ExamRequestDTO;
 import tech.lab365.labmedical.dtos.ExamResponseDTO;
 import tech.lab365.labmedical.services.ExamService;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/exams")
 public class ExamController {
@@ -25,19 +27,20 @@ public class ExamController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ExamResponseDTO> getExam(@PathVariable Long id) {
+    public ResponseEntity<ExamResponseDTO> getExam(@PathVariable UUID id) {
         ExamResponseDTO exam = examService.getExam(id);
         return ResponseEntity.ok(exam);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ExamResponseDTO> updateExam(@PathVariable Long id, @Valid @RequestBody ExamRequestDTO examRequestDTO) throws BadRequestException {
+    public ResponseEntity<ExamResponseDTO> updateExam(@PathVariable UUID id,
+                                                      @Valid @RequestBody ExamRequestDTO examRequestDTO) throws BadRequestException {
         ExamResponseDTO updateExam = examService.updateExam(id, examRequestDTO);
         return ResponseEntity.ok(updateExam);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteExam(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteExam(@PathVariable UUID id) {
         examService.deleteExam(id);
         return ResponseEntity.noContent().build();
     }
