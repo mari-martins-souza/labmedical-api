@@ -21,7 +21,7 @@ public class UserMapper {
         user.setBirthdate(dto.getBirthdate());
         user.setCpf(dto.getCpf());
         user.setPassword(dto.getPassword());
-        user.setName(dto.getRoleName());
+        user.setRoleName(dto.getRoleName());
         return user;
     }
 
@@ -32,7 +32,7 @@ public class UserMapper {
         user.setBirthdate(dto.getBirthdate());
         user.setCpf(dto.getCpf());
         user.setPassword("paciente");
-        user.setRoleName("PACIENTE");
+        user.setRoleName("ROLE_PACIENTE");
         return user;
     }
 
