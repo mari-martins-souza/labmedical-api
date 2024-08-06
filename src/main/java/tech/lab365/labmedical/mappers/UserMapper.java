@@ -1,6 +1,7 @@
 package tech.lab365.labmedical.mappers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import tech.lab365.labmedical.dtos.PatientRequestDTO;
 import tech.lab365.labmedical.dtos.UserRequestDTO;
@@ -26,12 +27,13 @@ public class UserMapper {
     }
 
     public User toUser(PatientRequestDTO dto) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         User user = new User();
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
         user.setBirthdate(dto.getBirthdate());
         user.setCpf(dto.getCpf());
-        user.setPassword("paciente");
+        user.setPassword(passwordEncoder.encode("paciente"));
         user.setRoleName("ROLE_PACIENTE");
         return user;
     }
