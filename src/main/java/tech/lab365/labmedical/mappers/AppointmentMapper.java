@@ -23,7 +23,7 @@ public class AppointmentMapper {
     public AppointmentResponseDTO toResponseDTO (Appointment appointment) {
         AppointmentResponseDTO dto = new AppointmentResponseDTO();
         Patient patient = appointment.getPatient();
-        dto.setAppointment_id(appointment.getAppointment_id());
+        dto.setAppointment_id(appointment.getAppointmentId());
         dto.setPatientName(patient.getName());
         dto.setId(patient.getId());
         dto.setReason(appointment.getReason());

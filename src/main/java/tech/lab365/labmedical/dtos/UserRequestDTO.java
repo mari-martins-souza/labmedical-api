@@ -1,5 +1,7 @@
 package tech.lab365.labmedical.dtos;
 
+import jakarta.validation.constraints.Pattern;
+
 import java.time.LocalDate;
 
 public class UserRequestDTO {
@@ -9,7 +11,9 @@ public class UserRequestDTO {
     private LocalDate birthdate;
     private String cpf;
     private String password;
-    private String profile;
+
+    @Pattern(regexp = "ROLE_PACIENTE|ROLE_ADMIN|ROLE_MEDICO", message = "Role must be ROLE_PACIENTE, ROLE_ADMIN, or ROLE_MEDICO")
+    private String roleName;
 
     public String getName() {
         return name;
@@ -51,11 +55,11 @@ public class UserRequestDTO {
         this.password = password;
     }
 
-    public String getProfile() {
-        return profile;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setProfile(String profile) {
-        this.profile = profile;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 }

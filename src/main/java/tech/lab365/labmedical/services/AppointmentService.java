@@ -3,6 +3,7 @@ package tech.lab365.labmedical.services;
 import jakarta.persistence.EntityNotFoundException;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import tech.lab365.labmedical.dtos.AppointmentRequestDTO;
 import tech.lab365.labmedical.dtos.AppointmentResponseDTO;
@@ -11,6 +12,9 @@ import tech.lab365.labmedical.entities.Patient;
 import tech.lab365.labmedical.mappers.AppointmentMapper;
 import tech.lab365.labmedical.repositories.AppointmentRepository;
 import tech.lab365.labmedical.repositories.PatientRepository;
+
+import java.util.List;
+import java.util.UUID;
 
 @Service
 public class AppointmentService {
@@ -57,13 +61,13 @@ private final AppointmentMapper appointmentMapper;
         return appointmentMapper.toResponseDTO(savedAppointment);
     }
 
-    public AppointmentResponseDTO getAppointment(Long id) {
+    public AppointmentResponseDTO getAppointment(UUID id) {
         Appointment appointment = appointmentRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
                 "Appointment not found"));
         return appointmentMapper.toResponseDTO(appointment);
     }
 
-    public AppointmentResponseDTO updateAppointment(Long id, AppointmentRequestDTO appointmentRequestDTO) throws BadRequestException {
+    public AppointmentResponseDTO updateAppointment(UUID id, AppointmentRequestDTO appointmentRequestDTO) throws BadRequestException {
         Appointment appointment = appointmentRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(
                 "Appointment not found"));
 
@@ -98,10 +102,20 @@ private final AppointmentMapper appointmentMapper;
         return appointmentMapper.toResponseDTO(savedAppointment);
     }
 
-    public void deleteAppointment(Long id) {
+    public void deleteAppointment(UUID id) {
         if (!appointmentRepository.existsById(id)) {
             throw new EntityNotFoundException("Appointment not found");
         }
         appointmentRepository.deleteById(id);
+    }
+
+    public List<Appointment> getAppointmentsByPatientId(UUID patientId) {
+        return appointmentRepository.findByPatient_Id(patientId);
+    }
+
+    public Appointment getAppointmentById(UUID appointmentId) throws ChangeSetPersister.NotFoundException {
+        return appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Appointment not found"));
     }
 }

@@ -7,13 +7,19 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import tech.lab365.labmedical.entities.Patient;
 
-public interface PatientRepository extends JpaRepository<Patient, Long> {
+import java.util.Optional;
+import java.util.UUID;
+
+public interface PatientRepository extends JpaRepository<Patient, UUID> {
 
     @Query("SELECT p FROM Patient p WHERE (:name is null or LOWER(p.name) LIKE LOWER(CONCAT('%', CAST(:name AS text), '%'))) and (COALESCE(:id, p.id) = p.id)")
-    Page<Patient> findByNameAndPatientId(@Param("name") String name, @Param("id") Long id, Pageable pageable);
+    Page<Patient> findByNameAndPatientId(@Param("name") String name, @Param("id") UUID id, Pageable pageable);
 
     boolean existsByCpf(String cpf);
 
+    Patient findByUser_UserId (UUID userId);
+
+    Optional<Patient> findById (UUID id);
 }
 
 

@@ -9,18 +9,19 @@ import tech.lab365.labmedical.validation.Cpf;
 import tech.lab365.labmedical.validation.PhoneNumber;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name="patients")
 public class Patient {
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "userId")
     private User user;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     @NotBlank
     @Size(min = 8, max = 64)
@@ -109,7 +110,7 @@ public class Patient {
     public Patient() {
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -319,5 +320,9 @@ public class Patient {
 
     public User getUser() {
         return user;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 }

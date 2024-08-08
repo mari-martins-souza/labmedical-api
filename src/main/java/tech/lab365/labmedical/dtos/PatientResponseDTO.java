@@ -1,6 +1,7 @@
 package tech.lab365.labmedical.dtos;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class PatientResponseDTO {
 
@@ -8,7 +9,7 @@ public class PatientResponseDTO {
     private String email;
     private LocalDate birthdate;
     private String cpf;
-    private Long id;
+    private UUID id;
     private String gender;
     private String rg;
     private String issOrg;
@@ -63,11 +64,11 @@ public class PatientResponseDTO {
         this.cpf = cpf;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

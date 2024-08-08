@@ -5,6 +5,7 @@ import org.apache.coyote.BadRequestException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,8 +18,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
-        if (e.getMessage().contains("cpf")) {
-            return new ResponseEntity<>("cpf already exists in database", HttpStatus.CONFLICT);
+        if (e.getMessage().contains("cpf")){
+            return new ResponseEntity<>("cpf and/or email already exists in database", HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
@@ -47,6 +48,11 @@ public class GlobalExceptionHandler {
                 .map(FieldError::getDefaultMessage)
                 .collect(Collectors.joining(", "));
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({BadCredentialsException.class})
+    public ResponseEntity<String> handleBadCredentialException(BadCredentialsException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler({BadRequestException.class})

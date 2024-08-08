@@ -2,12 +2,13 @@ package tech.lab365.labmedical.dtos;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.UUID;
 
 public class ExamResponseDTO {
 
-    private Long id;
+    private UUID id;
     private String patientName;
-    private Long exam_id;
+    private UUID examId;
     private String exam;
     private LocalDate examDate;
     private LocalTime examTime;
@@ -16,11 +17,11 @@ public class ExamResponseDTO {
     private String docUrl;
     private String result;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -32,12 +33,12 @@ public class ExamResponseDTO {
         this.patientName = patientName;
     }
 
-    public Long getExam_id() {
-        return exam_id;
+    public UUID getExamId() {
+        return examId;
     }
 
-    public void setExam_id(Long exam_id) {
-        this.exam_id = exam_id;
+    public void setExamId(UUID examId) {
+        this.examId = examId;
     }
 
     public String getExam() {

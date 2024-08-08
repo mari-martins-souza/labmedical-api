@@ -1,4 +1,4 @@
-package tech.lab365.labmedical;
+package tech.lab365.labmedical.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

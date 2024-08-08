@@ -2,6 +2,7 @@ package tech.lab365.labmedical.entities;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.UUID;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -17,8 +18,8 @@ public class Exam {
     private Patient patient;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private Long exam_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID examId;
 
     @NotBlank
     @Size(min = 8, max = 64)
@@ -61,12 +62,12 @@ public class Exam {
         this.patient = patient;
     }
 
-    public Long getExam_id() {
-        return exam_id;
+    public UUID getExamId() {
+        return examId;
     }
 
-    public void setExam_id(Long exam_id) {
-        this.exam_id = exam_id;
+    public void setExamId(UUID examId) {
+        this.examId = examId;
     }
 
     public @NotBlank @Size(min = 8, max = 64) String getExam() {

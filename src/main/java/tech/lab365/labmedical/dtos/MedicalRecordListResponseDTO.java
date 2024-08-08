@@ -1,14 +1,18 @@
 package tech.lab365.labmedical.dtos;
 
+import java.util.UUID;
+
 public class MedicalRecordListResponseDTO {
 
-    private Long id;
+    private UUID id;
     private String name;
     private String insurance;
 
-    public Long getId() { return id; }
+    public UUID getId() {
+        return id;
+    }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
