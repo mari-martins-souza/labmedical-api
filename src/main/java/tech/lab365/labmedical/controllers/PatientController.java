@@ -1,8 +1,10 @@
 package tech.lab365.labmedical.controllers;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,7 @@ import tech.lab365.labmedical.dtos.PatientRequestDTO;
 import tech.lab365.labmedical.dtos.PatientResponseDTO;
 import tech.lab365.labmedical.entities.Patient;
 import tech.lab365.labmedical.services.PatientService;
+
 
 import java.util.List;
 import java.util.UUID;
@@ -28,7 +31,7 @@ public class PatientController {
     @PostMapping
     public ResponseEntity<Patient> registerPatient(@Valid @RequestBody PatientRequestDTO patientRequestDTO) throws BadRequestException {
         Patient patientResponseDTO = patientService.registerPatient(patientRequestDTO);
-        return ResponseEntity.ok(patientResponseDTO);
+        return new ResponseEntity<>(patientResponseDTO, HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -47,13 +50,14 @@ public class PatientController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updatePatient(@PathVariable UUID id,
+    public ResponseEntity<?> updatePatient(@PathVariable UUID id,
                                                 @Valid @RequestBody PatientRequestDTO patientRequestDTO) {
         try {
             PatientResponseDTO updatedPatient = patientService.updatePatient(id, patientRequestDTO);
-            return ResponseEntity.ok(updatedPatient.toString());
+            return ResponseEntity.ok(updatedPatient);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         } catch (BadRequestException e) {
-
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }

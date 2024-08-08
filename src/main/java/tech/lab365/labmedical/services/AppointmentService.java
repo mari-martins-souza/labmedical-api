@@ -3,6 +3,7 @@ package tech.lab365.labmedical.services;
 import jakarta.persistence.EntityNotFoundException;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 import tech.lab365.labmedical.dtos.AppointmentRequestDTO;
 import tech.lab365.labmedical.dtos.AppointmentResponseDTO;
@@ -12,6 +13,7 @@ import tech.lab365.labmedical.mappers.AppointmentMapper;
 import tech.lab365.labmedical.repositories.AppointmentRepository;
 import tech.lab365.labmedical.repositories.PatientRepository;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -105,5 +107,15 @@ private final AppointmentMapper appointmentMapper;
             throw new EntityNotFoundException("Appointment not found");
         }
         appointmentRepository.deleteById(id);
+    }
+
+    public List<Appointment> getAppointmentsByPatientId(UUID patientId) {
+        return appointmentRepository.findByPatient_Id(patientId);
+    }
+
+    public Appointment getAppointmentById(UUID appointmentId) throws ChangeSetPersister.NotFoundException {
+        return appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Appointment not found"));
     }
 }

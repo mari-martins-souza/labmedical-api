@@ -2,6 +2,7 @@ package tech.lab365.labmedical.controllers;
 
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ public class ExamController {
     @PostMapping
     public ResponseEntity<ExamResponseDTO> registerExam(@Valid @RequestBody ExamRequestDTO examRequestDTO) throws BadRequestException {
         ExamResponseDTO examResponseDTO = examService.registerExam(examRequestDTO);
-        return ResponseEntity.ok(examResponseDTO);
+        return new ResponseEntity<>(examResponseDTO, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
