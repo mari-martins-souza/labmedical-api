@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import tech.lab365.labmedical.repositories.UserRepository;
-import tech.lab365.labmedical.security.controller.dtos.LoginRequestDTO;
-import tech.lab365.labmedical.security.controller.dtos.LoginResponseDTO;
+import tech.lab365.labmedical.security.dtos.LoginRequestDTO;
+import tech.lab365.labmedical.security.dtos.LoginResponseDTO;
 
 import java.time.Instant;
 

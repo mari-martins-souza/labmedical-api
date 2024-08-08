@@ -20,7 +20,7 @@ import org.springframework.security.oauth2.jwt.*;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
-import tech.lab365.labmedical.security.service.CustomUserDetailsService;
+import tech.lab365.labmedical.security.services.CustomUserDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,9 +55,10 @@ public class SecurityConfig {
                         .requestMatchers("/dashboard/**").hasAnyRole("ADMIN", "MEDICO")
                         .requestMatchers(HttpMethod.GET, "/patients/{id}/medical-record").authenticated()
                         .requestMatchers("/patients/**").hasAnyRole("ADMIN", "MEDICO")
-                        .requestMatchers("/exams/**").hasAnyRole("ADMIN", "MEDICO")
+                        .requestMatchers("/exams").hasAnyRole("ADMIN", "MEDICO")
                         .requestMatchers("/appointments").hasAnyRole("ADMIN", "MEDICO")
                         .requestMatchers(HttpMethod.GET, "/appointments/{id}").hasAnyRole("ADMIN", "MEDICO", "PACIENTE")
+                        .requestMatchers(HttpMethod.GET, "/exams/{id}").hasAnyRole("ADMIN", "MEDICO", "PACIENTE")
                         .anyRequest().authenticated())
                 .csrf(AbstractHttpConfigurer::disable)
                 .oauth2ResourceServer(oauth2 -> oauth2

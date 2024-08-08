@@ -1,4 +1,4 @@
-package tech.lab365.labmedical.security.service;
+package tech.lab365.labmedical.security.services;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

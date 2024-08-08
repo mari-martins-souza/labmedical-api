@@ -14,9 +14,9 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 import tech.lab365.labmedical.dtos.AppointmentRequestDTO;
 import tech.lab365.labmedical.dtos.AppointmentResponseDTO;
-import tech.lab365.labmedical.security.service.PatientToAppointmentService;
+import tech.lab365.labmedical.security.services.PatientToAppointmentService;
 import tech.lab365.labmedical.services.AppointmentService;
-import tech.lab365.labmedical.security.service.UserToPatientService;
+import tech.lab365.labmedical.security.services.UserToPatientService;
 
 import java.util.UUID;
 

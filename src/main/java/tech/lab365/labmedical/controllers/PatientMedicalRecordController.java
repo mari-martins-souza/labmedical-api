@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tech.lab365.labmedical.dtos.PatientMedicalRecordResponseDTO;
-import tech.lab365.labmedical.security.service.UserToPatientService;
+import tech.lab365.labmedical.security.services.UserToPatientService;
 import tech.lab365.labmedical.services.PatientMedicalRecordService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

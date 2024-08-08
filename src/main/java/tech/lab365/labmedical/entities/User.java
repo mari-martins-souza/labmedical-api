@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import tech.lab365.labmedical.security.controller.dtos.LoginRequestDTO;
+import tech.lab365.labmedical.security.dtos.LoginRequestDTO;
 import tech.lab365.labmedical.validation.Cpf;
 
 import java.time.LocalDate;

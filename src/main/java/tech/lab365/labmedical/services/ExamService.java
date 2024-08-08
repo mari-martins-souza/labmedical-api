@@ -2,18 +2,21 @@ package tech.lab365.labmedical.services;
 
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import tech.lab365.labmedical.dtos.ExamResponseDTO;
 import jakarta.persistence.EntityNotFoundException;
 
 import tech.lab365.labmedical.dtos.ExamRequestDTO;
+import tech.lab365.labmedical.entities.Appointment;
 import tech.lab365.labmedical.entities.Exam;
 import tech.lab365.labmedical.entities.Patient;
 import tech.lab365.labmedical.mappers.ExamMapper;
 import tech.lab365.labmedical.repositories.ExamRepository;
 import tech.lab365.labmedical.repositories.PatientRepository;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -114,6 +117,16 @@ public class ExamService {
             throw new EntityNotFoundException("Exam not found");
         }
         examRepository.deleteById(id);
+    }
+
+    public List<Exam> getExamsByPatientId(UUID patientId) {
+        return examRepository.findByPatient_Id(patientId);
+    }
+
+    public Exam getExamById(UUID examId) throws ChangeSetPersister.NotFoundException {
+        return examRepository.findById(examId)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "Exam not found"));
     }
 
 }

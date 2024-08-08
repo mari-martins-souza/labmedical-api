@@ -1,4 +1,4 @@
-package tech.lab365.labmedical.security.service;
+package tech.lab365.labmedical.security.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
