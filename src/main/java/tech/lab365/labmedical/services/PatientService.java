@@ -16,6 +16,8 @@ import tech.lab365.labmedical.entities.User;
 import tech.lab365.labmedical.error.ConflictException;
 import tech.lab365.labmedical.mappers.PatientMapper;
 import tech.lab365.labmedical.mappers.UserMapper;
+import tech.lab365.labmedical.repositories.AppointmentRepository;
+import tech.lab365.labmedical.repositories.ExamRepository;
 import tech.lab365.labmedical.repositories.PatientRepository;
 import tech.lab365.labmedical.repositories.UserRepository;
 
@@ -31,13 +33,17 @@ public class PatientService {
     private final UserRepository userRepository;
     private final PatientMapper patientMapper;
     private final UserMapper userMapper;
+    private final AppointmentRepository appointmentRepository;
+    private final ExamRepository examRepository;
 
     @Autowired
-    public PatientService(PatientRepository patientRepository, UserRepository userRepository, PatientMapper patientMapper, UserMapper userMapper) {
+    public PatientService(PatientRepository patientRepository, UserRepository userRepository, PatientMapper patientMapper, UserMapper userMapper, AppointmentRepository appointmentRepository, ExamRepository examRepository) {
         this.patientRepository = patientRepository;
         this.userRepository = userRepository;
         this.patientMapper = patientMapper;
         this.userMapper = userMapper;
+        this.appointmentRepository = appointmentRepository;
+        this.examRepository = examRepository;
     }
 
     public Patient registerPatient(PatientRequestDTO patientRequestDTO) throws BadRequestException {
@@ -97,8 +103,6 @@ public class PatientService {
 
         return patient;
     }
-
-
 
     public List<PatientGetAllResponseDTO> getAllPatients(String name, String phone, String email) {
         return patientRepository.findAll().stream()
@@ -167,6 +171,13 @@ public class PatientService {
     public void deletePatient(UUID id) {
         if (!patientRepository.existsById(id)) {
             throw new EntityNotFoundException("Patient not found");
+        }
+
+        boolean hasAppointment = appointmentRepository.existsByPatient_Id(id);
+        boolean hasExam = examRepository.existsByPatient_Id(id);
+
+        if(hasAppointment || hasExam) {
+            throw new IllegalStateException("Cannot delete patient with appointments or exams");
         }
         patientRepository.deleteById(id);
     }

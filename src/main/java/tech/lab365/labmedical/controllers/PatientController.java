@@ -68,6 +68,8 @@ public class PatientController {
         return ResponseEntity.noContent().build();
     }
 
+
+
     @GetMapping("/medical-record-list")
     public ResponseEntity<Page<MedicalRecordListResponseDTO>> getAllMedicalRecords(
             @RequestParam(required = false) String name,
