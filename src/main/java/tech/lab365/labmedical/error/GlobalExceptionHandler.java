@@ -41,6 +41,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler({IllegalStateException.class})
+    public ResponseEntity<String> handleStateExceptions(IllegalStateException e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+    }
+
 
     @ExceptionHandler({MethodArgumentNotValidException.class})
     public ResponseEntity<String> handleValidationExceptions(MethodArgumentNotValidException ex) {
