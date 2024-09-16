@@ -94,9 +94,11 @@ As permissões do sistema são divididas entre três tipos de usuários: **ADMIN
 
 **MEDICO:** Tem acesso a todos os métodos disponíveis em todos os endpoints, exceto ao endpoint `/users`, que permite o cadastro de novos usuários. Há uma exceção para a criação de novos usuários no endpoint `/patients`, onde, ao cadastrar um novo paciente, um usuário com a permissão “PACIENTE” é criado automaticamente na mesma requisição. Portanto, o usuário do tipo "MEDICO", que pode cadastrar novos pacientes, indiretamente, tem a permissão de cadastrar um usuário para os pacientes. No entanto, o Médico não pode cadastrar usuários diretamente no endpoint `/users`, pois este permite a criação de usuários com permissões de "MEDICO" ou "ADMIN", e apenas um usuário do tipo "ADMIN" tem essa permissão.
 
-**Login** (`/login`): Endpoint para autenticação no sistema.
-
 **PACIENTE:** Possui acesso limitado aos recursos do sistema, podendo visualizar (GET) apenas suas próprias informações e dados relacionados (`/patients/{id}`, `/appointments/{id}`, `/exams/{id}` e `/patients/{id}/medical-record`).
+
+**Endpoints:**
+
+**Login** (`/login`): Endpoint para autenticação no sistema.
 
 **Gerenciamento de Pacientes** (`/patients`): Endpoint para cadastrar, editar, listar e deletar pacientes. Pacientes somente poderão ser deletados quando não possuírem exames ou consultas vinculados a eles.
 
