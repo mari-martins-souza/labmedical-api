@@ -15,9 +15,11 @@ System permissions are divided among three types of users: **ADMIN, MEDICO(DOCTO
 
 **MEDICO(DOCTOR):** Has access to all available methods on all endpoints, except the `/users` endpoint, which allows the registration of new users. There is an exception for creating new users at the `/patients` endpoint, where, when registering a new patient, a user with the “PACIENTE” permission is automatically created in the same request. Therefore, the "MEDICO" user, who can register new patients, indirectly has the permission to register a user for the patients. However, the Doctor cannot directly register users at the `/users` endpoint, as this allows the creation of users with "MEDICO" or "ADMIN" permissions, and only an "ADMIN" user has this permission.
 
-**Login** (`/login`): Endpoint for system authentication.
-
 **PACIENTE(PATIENT):** Has limited access to system resources, being able to view (GET) only their own information and related data (`/patients/{id}`, `/appointments/{id}`, /`exams/{id}`, and `/patients/{id}/medical-record`).
+
+**Endpoints:**
+
+**Login** (`/login`): Endpoint for system authentication.
 
 **Patient Management** (`/patients`): Endpoint to register, edit, list and delete patients. Patients can only be deleted when they do not have exams or appointments linked to them.
 
