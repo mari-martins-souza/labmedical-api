@@ -1,39 +1,39 @@
 
 # LABmedical API
 
-The **LABmedical API** is a backend application built with Spring Boot, designed to manage patients, appointments, and exams in a hospital environment. This API provides endpoints to create, read, update, and delete (CRUD) information related to patients, appointments, and exams, as well as user authentication and authorization, implemented with Spring Security.
+The **LABmedical API** is a backend application built with Spring Boot, designed to manage patients, appointments and exams in a hospital environment. This API provides endpoints to create, read, update and delete (CRUD) information related to patients, appointments and exams, as well as user authentication and authorization, implemented with Spring Security.
 
-System permissions are divided among three types of users: **Admin, Doctor, and Patient**, each with different roles and permissions. This ensures that each user has access only to the functionalities and data relevant to their role.
+System permissions are divided among three types of users: **ADMIN, MEDICO(DOCTOR) and PACIENTE(PATIENT)**, each with different roles and permissions. This ensures that each user has access only to the functionalities and data relevant to their role.
 
 ## Features
 
-**Authentication and Authorization:** Implemented with Spring Security, the API supports user authentication and defines access levels for three different types of users: Administrators, Doctors (or Nurses), and Patients. Authorization is managed through JWT (JSON Web Tokens), ensuring security and efficiency in access control.
+**Authentication and Authorization:** Implemented with Spring Security, the API supports user authentication and defines access levels for three different types of users: Administrators, Doctors (or Nurses) and Patients. Authorization is managed through JWT (JSON Web Tokens), ensuring security and efficiency in access control.
 
 **User Profiles:**
 
 **ADMIN:** Has unrestricted access to all system resources.
 
-**MEDICO(DOCTOR):** Has access to all available methods on all endpoints, except the `/users` endpoint, which allows the registration of new users. There is an exception for creating new users at the `/patients` endpoint, where, when registering a new patient, a user with the “PATIENT” permission is automatically created in the same request. Therefore, the DOCTOR user, who can register new patients, indirectly has the permission to register a user for the patients. However, the Doctor cannot directly register users at the `/users` endpoint, as this allows the creation of users with DOCTOR or ADMIN permissions, and only an ADMIN user has this permission.
+**MEDICO(DOCTOR):** Has access to all available methods on all endpoints, except the `/users` endpoint, which allows the registration of new users. There is an exception for creating new users at the `/patients` endpoint, where, when registering a new patient, a user with the “PACIENTE” permission is automatically created in the same request. Therefore, the "MEDICO" user, who can register new patients, indirectly has the permission to register a user for the patients. However, the Doctor cannot directly register users at the `/users` endpoint, as this allows the creation of users with "MEDICO" or "ADMIN" permissions, and only an "ADMIN" user has this permission.
 
 **Login** (`/login`): Endpoint for system authentication.
 
 **PACIENTE(PATIENT):** Has limited access to system resources, being able to view (GET) only their own information and related data (`/patients/{id}`, `/appointments/{id}`, /`exams/{id}`, and `/patients/{id}/medical-record`).
 
-**Patient Management** (`/patients`): Endpoint to register, edit, list, and delete patients. Patients can only be deleted when they do not have exams or appointments linked to them.
+**Patient Management** (`/patients`): Endpoint to register, edit, list and delete patients. Patients can only be deleted when they do not have exams or appointments linked to them.
 
-**Appointment Management** (`/appointments`): Endpoint to register, edit, list, and delete appointments. Appointments are linked to patients.
+**Appointment Management** (`/appointments`): Endpoint to register, edit, list and delete appointments. Appointments are linked to patients.
 
-**Exam Management** (`/exams`): Endpoint to register, edit, list, and delete exams. Exams are also linked to patients.
+**Exam Management** (`/exams`): Endpoint to register, edit, list and delete exams. Exams are also linked to patients.
 
-**Dashboard** (`/dashboard/stats`): Endpoint to obtain general statistics on the number of patients, appointments, and exams registered in the system.
+**Dashboard** (`/dashboard/stats`): Endpoint to obtain general statistics on the number of patients, appointments and exams registered in the system.
 
-**Medical Records** (`/patients/{id}/medical-record` and `/patients/medical-record-list`): Endpoints to consult the medical record of a specific patient, including all exams and appointments linked to them, and an endpoint to list all patients, including ID, name, and health plan of the patient.
+**Medical Records** (`/patients/{id}/medical-record` and `/patients/medical-record-list`): Endpoints to consult the medical record of a specific patient, including all exams and appointments linked to them, and an endpoint to list all patients, including ID, name and health plan of the patient.
 
 
 ## How to Test
 
 1. Clone the project to your machine.
-2. Ensure you have PostgreSQL, pgAdmin 4, and Insomnia installed. If not, you will need to install them.
+2. Ensure you have PostgreSQL, pgAdmin 4 and Insomnia installed. If not, you will need to install them.
 3. Ensure you have an IDE with Java support. Suggestion: IntelliJ IDEA.
 4. Open the project in your IDE.
 5. Start pgAdmin 4.
@@ -47,7 +47,7 @@ spring.datasource.driver-class-name=org.postgresql.Driver
 ```
 8. Start Insomnia and import the `Insomnia_2024-08-10.json` file located in the root folder of the project.
 9. In your IDE, run the `LaBmedicalApplication` class to start the application.
-10. Test the endpoints using Insomnia.
+10. Test the endpoints using Insomnia. Start using the system's main user: email "admin@labmedical.com" / password "adminlabmedical".
 
 ## Project Tools and Dependencies
 
@@ -80,7 +80,7 @@ This project was built using the following technologies and libraries:
 
 A **LABmedical API** é uma aplicação backend construída com Spring Boot, projetada para gerenciar pacientes, consultas e exames em um ambiente hospitalar. Esta API fornece endpoints para criar, ler, atualizar e deletar (CRUD) informações relacionadas a pacientes, consultas e exames, além de autenticação e autorização de usuários, implementadas com Spring Security.
 
-As permissões do sistema são divididas entre três tipos de usuários: **Admin, Médico e Paciente**, cada um com papéis e permissões diferentes. Isso garante que cada usuário tenha acesso apenas às funcionalidades e dados relevantes para seu papel.
+As permissões do sistema são divididas entre três tipos de usuários: **ADMIN, MEDICO e PACIENTE**, cada um com papéis e permissões diferentes. Isso garante que cada usuário tenha acesso apenas às funcionalidades e dados relevantes para seu papel.
 
 ## Recursos
 
@@ -90,7 +90,7 @@ As permissões do sistema são divididas entre três tipos de usuários: **Admin
 
 **ADMIN:** Possui acesso irrestrito a todos os recursos do sistema.
 
-**MEDICO:** Tem acesso a todos os métodos disponíveis em todos os endpoints, exceto ao endpoint `/users`, que permite o cadastro de novos usuários. Há uma exceção para a criação de novos usuários no endpoint `/patients`, onde, ao cadastrar um novo paciente, um usuário com a permissão “PACIENTE” é criado automaticamente na mesma requisição. Portanto, o usuário do tipo MEDICO, que pode cadastrar novos pacientes, indiretamente, tem a permissão de cadastrar um usuário para os pacientes. No entanto, o Médico não pode cadastrar usuários diretamente no endpoint `/users`, pois este permite a criação de usuários com permissões de MEDICO ou ADMIN, e apenas um usuário do tipo ADMIN tem essa permissão.
+**MEDICO:** Tem acesso a todos os métodos disponíveis em todos os endpoints, exceto ao endpoint `/users`, que permite o cadastro de novos usuários. Há uma exceção para a criação de novos usuários no endpoint `/patients`, onde, ao cadastrar um novo paciente, um usuário com a permissão “PACIENTE” é criado automaticamente na mesma requisição. Portanto, o usuário do tipo "MEDICO", que pode cadastrar novos pacientes, indiretamente, tem a permissão de cadastrar um usuário para os pacientes. No entanto, o Médico não pode cadastrar usuários diretamente no endpoint `/users`, pois este permite a criação de usuários com permissões de "MEDICO" ou "ADMIN", e apenas um usuário do tipo "ADMIN" tem essa permissão.
 
 **Login** (`/login`): Endpoint para autenticação no sistema.
 
@@ -124,7 +124,7 @@ spring.datasource.driver-class-name=org.postgresql.Driver
 ```
 8. Inicie o Insomnia e importe o arquivo `Insomnia_2024-08-10.json` que está na pasta raiz do projeto.
 9. Na sua IDE, execute a classe `LaBmedicalApplication` para iniciar a aplicação.
-10. Teste os endpoints através do Insomnia.
+10. Teste os endpoints através do Insomnia. Comece utilizando o usuário principal do sistema: email “admin@labmedical.com” / senha “adminlabmedical”.
 
 ## Ferramentas e Dependências do Projeto
 
