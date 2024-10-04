@@ -49,6 +49,7 @@ public class Exam {
 
     @Size(min = 16, max = 1024)
     @Column(length = 1024)
+    @NotBlank
     private String result;
 
     public Exam() {

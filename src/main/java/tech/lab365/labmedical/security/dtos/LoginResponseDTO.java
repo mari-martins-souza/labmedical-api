@@ -1,4 +1,4 @@
 package tech.lab365.labmedical.security.dtos;
 
-public record LoginResponseDTO(String accessToken, Long expiresIn) {
+public record LoginResponseDTO(String token, Long expiresIn) {
 }

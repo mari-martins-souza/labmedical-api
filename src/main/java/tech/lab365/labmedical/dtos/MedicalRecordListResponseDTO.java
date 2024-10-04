@@ -6,7 +6,7 @@ public class MedicalRecordListResponseDTO {
 
     private UUID id;
     private String name;
-    private String insurance;
+    private String healthInsurance;
 
     public UUID getId() {
         return id;
@@ -24,11 +24,11 @@ public class MedicalRecordListResponseDTO {
         this.name = name;
     }
 
-    public String getInsurance() {
-        return insurance;
+    public String getHealthInsurance() {
+        return healthInsurance;
     }
 
-    public void setInsurance(String insurance) {
-        this.insurance = insurance;
+    public void setHealthInsurance(String insurance) {
+        this.healthInsurance = insurance;
     }
 }

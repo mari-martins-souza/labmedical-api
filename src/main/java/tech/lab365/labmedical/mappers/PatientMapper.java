@@ -115,7 +115,7 @@ public class PatientMapper {
         MedicalRecordListResponseDTO dto = new MedicalRecordListResponseDTO();
         dto.setId(patient.getId());
         dto.setName(patient.getName());
-        dto.setInsurance(patient.getHealthInsurance());
+        dto.setHealthInsurance(patient.getHealthInsurance());
         return dto;
     }
 
