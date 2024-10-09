@@ -2,7 +2,6 @@ package tech.lab365.labmedical.services;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import tech.lab365.labmedical.dtos.PatientMedicalRecordResponseDTO;
 import tech.lab365.labmedical.entities.Appointment;
@@ -41,6 +40,7 @@ public class PatientMedicalRecordService {
 
         return patientMedicalRecordMapper.toDto(patient, exams, appointments);
     }
+
 }
 
 

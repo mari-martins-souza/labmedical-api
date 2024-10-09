@@ -1,14 +1,20 @@
 package tech.lab365.labmedical.dtos;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class PatientGetAllResponseDTO {
 
+    private UUID id;
     private String name;
     private String email;
     private LocalDate birthdate;
     private String phone;
     private String healthInsurance;
+
+    public UUID getId() { return id; }
+
+    public void setId(UUID id) { this.id = id; }
 
     public String getName() {
         return name;

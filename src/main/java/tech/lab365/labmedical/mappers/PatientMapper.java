@@ -74,6 +74,7 @@ public class PatientMapper {
 
     public PatientGetAllResponseDTO toResponseAllDTO(Patient patient) {
         PatientGetAllResponseDTO dto = new PatientGetAllResponseDTO();
+        dto.setId(patient.getId());
         dto.setName(patient.getName());
         dto.setBirthdate(patient.getBirthdate());
         dto.setPhone(patient.getPhone());

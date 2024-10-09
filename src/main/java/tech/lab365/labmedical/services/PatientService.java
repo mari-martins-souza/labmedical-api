@@ -1,7 +1,6 @@
 package tech.lab365.labmedical.services;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -105,10 +104,17 @@ public class PatientService {
     }
 
     public List<PatientGetAllResponseDTO> getAllPatients(String name, String phone, String email) {
-        return patientRepository.findAll().stream()
+        List<Patient> patients;
+        if (name != null && !name.isEmpty()) {
+            patients = patientRepository.findByNameContainingIgnoreCase(name);
+        } else {
+            patients = patientRepository.findAll();
+        }
+        return patients.stream()
                 .map(patientMapper::toResponseAllDTO)
                 .collect(Collectors.toList());
     }
+
 
     public PatientResponseDTO getPatient(UUID id) {
         Patient patient = patientRepository.findById(id)
