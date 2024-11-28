@@ -4,6 +4,7 @@ public class DashboardStatsDTO {
     private long totalPatients;
     private long totalAppointments;
     private long totalExams;
+    private long totalUsers;
 
     public long getTotalPatients() {
         return totalPatients;
@@ -27,5 +28,13 @@ public class DashboardStatsDTO {
 
     public void setTotalExams(long totalExams) {
         this.totalExams = totalExams;
+    }
+
+    public long getTotalUsers() {
+        return totalUsers;
+    }
+
+    public void setTotalUsers(long totalUsers) {
+        this.totalUsers = totalUsers;
     }
 }

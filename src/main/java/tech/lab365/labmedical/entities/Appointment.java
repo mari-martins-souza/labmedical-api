@@ -40,6 +40,7 @@ public class Appointment {
     private String problemDescrip;
 
     @Column
+    @Size(max = 10240)
     private String prescMed;
 
     @Size(min = 16, max = 256)

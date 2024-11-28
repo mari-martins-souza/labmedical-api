@@ -23,6 +23,25 @@ public class PatientMedicalRecordMapper {
     public PatientMedicalRecordResponseDTO toDto(Patient patient, List<Exam> exams, List<Appointment> appointments) {
         PatientMedicalRecordResponseDTO dto = new PatientMedicalRecordResponseDTO();
         dto.setName(patient.getName());
+        dto.setEmail(patient.getEmail());
+        dto.setBirthdate(patient.getBirthdate());
+        dto.setCpf(patient.getCpf());
+        dto.setId(patient.getId());
+        dto.setGender(patient.getGender());
+        dto.setRg(patient.getRg());
+        dto.setIssOrg(patient.getIssOrg());
+        dto.setMaritalStatus(patient.getMaritalStatus());
+        dto.setPhone(patient.getPhone());
+        dto.setPlaceOfBirth(patient.getPlaceOfBirth());
+        dto.setHealthInsuranceVal(patient.getHealthInsuranceVal());
+        dto.setZipcode(patient.getZipcode());
+        dto.setStreet(patient.getStreet());
+        dto.setAddressNumber(patient.getAddressNumber());
+        dto.setComplement(patient.getComplement());
+        dto.setReferencePoint(patient.getReferencePoint());
+        dto.setNeighborhood(patient.getNeighborhood());
+        dto.setCity(patient.getCity());
+        dto.setState(patient.getState());
         dto.setHealthInsurance(patient.getHealthInsurance());
         dto.setEmergCont(patient.getEmergCont());
         dto.setEmergContNumber(patient.getEmergContNumber());

@@ -103,16 +103,17 @@ public class PatientService {
         return patient;
     }
 
-    public List<PatientGetAllResponseDTO> getAllPatients(String name, String phone, String email) {
-        List<Patient> patients;
+    public Page<PatientGetAllResponseDTO> getAllPatients(String name, String email, Pageable pageable) {
+        Page<Patient> patients;
         if (name != null && !name.isEmpty()) {
-            patients = patientRepository.findByNameContainingIgnoreCase(name);
+            patients = patientRepository.findByNameContainingIgnoreCase(name, pageable);
+        } else if (email != null && !email.isEmpty()) {
+            patients = patientRepository.findByEmailIgnoreCase(email, pageable);
         } else {
-            patients = patientRepository.findAll();
+            patients = patientRepository.findAll(pageable);
         }
-        return patients.stream()
-                .map(patientMapper::toResponseAllDTO)
-                .collect(Collectors.toList());
+        return patients.map(PatientMapper::toResponseAllDTO);
+
     }
 
 
