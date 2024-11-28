@@ -72,7 +72,7 @@ public class PatientMapper {
         return dto;
     }
 
-    public PatientGetAllResponseDTO toResponseAllDTO(Patient patient) {
+    public static PatientGetAllResponseDTO toResponseAllDTO(Patient patient) {
         PatientGetAllResponseDTO dto = new PatientGetAllResponseDTO();
         dto.setId(patient.getId());
         dto.setName(patient.getName());
@@ -80,6 +80,7 @@ public class PatientMapper {
         dto.setPhone(patient.getPhone());
         dto.setEmail(patient.getEmail());
         dto.setHealthInsurance(patient.getHealthInsurance());
+        dto.setGender(patient.getGender());
         return dto;
     }
 
@@ -117,6 +118,7 @@ public class PatientMapper {
         dto.setId(patient.getId());
         dto.setName(patient.getName());
         dto.setHealthInsurance(patient.getHealthInsurance());
+        dto.setPhone(patient.getPhone());
         return dto;
     }
 

@@ -11,6 +11,7 @@ public class PatientGetAllResponseDTO {
     private LocalDate birthdate;
     private String phone;
     private String healthInsurance;
+    private String gender;
 
     public UUID getId() { return id; }
 
@@ -56,4 +57,11 @@ public class PatientGetAllResponseDTO {
         this.healthInsurance = healthInsurance;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 }

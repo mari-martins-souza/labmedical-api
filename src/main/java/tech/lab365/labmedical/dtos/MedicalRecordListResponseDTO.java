@@ -7,6 +7,7 @@ public class MedicalRecordListResponseDTO {
     private UUID id;
     private String name;
     private String healthInsurance;
+    private String phone;
 
     public UUID getId() {
         return id;
@@ -30,5 +31,13 @@ public class MedicalRecordListResponseDTO {
 
     public void setHealthInsurance(String insurance) {
         this.healthInsurance = insurance;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
