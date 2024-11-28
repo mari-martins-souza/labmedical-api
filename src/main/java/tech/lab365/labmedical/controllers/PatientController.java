@@ -6,6 +6,7 @@ import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,11 +36,14 @@ public class PatientController {
     }
 
     @GetMapping
-    public ResponseEntity<List<PatientGetAllResponseDTO>> getAllPatients(
+    public ResponseEntity<Page<PatientGetAllResponseDTO>> getAllPatients(
             @RequestParam(required = false) String name,
-            @RequestParam(required = false) String phone,
-            @RequestParam(required = false) String email) {
-        List<PatientGetAllResponseDTO> patients = patientService.getAllPatients(name, phone, email);
+            @RequestParam(required = false) String email,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<PatientGetAllResponseDTO> patients = patientService.getAllPatients(name, email, pageable);
         return ResponseEntity.ok(patients);
     }
 

@@ -16,7 +16,9 @@ public interface PatientRepository extends JpaRepository<Patient, UUID> {
     @Query("SELECT p FROM Patient p WHERE (:name is null or LOWER(p.name) LIKE LOWER(CONCAT('%', CAST(:name AS text), '%'))) and (COALESCE(:id, p.id) = p.id)")
     Page<Patient> findByNameAndPatientId(@Param("name") String name, @Param("id") UUID id, Pageable pageable);
 
-    List<Patient> findByNameContainingIgnoreCase(String name);
+    Page<Patient> findByNameContainingIgnoreCase(String name, Pageable pageable);
+
+    Page<Patient> findByEmailIgnoreCase(String email, Pageable pageable);
 
     boolean existsByCpf(String cpf);
 
